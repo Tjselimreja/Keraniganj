@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>কেরানীগঞ্জ.com</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f2f2f7;
+    --white: #ffffff;
+    --primary: #1a6b3c;
+    --primary-light: #e8f5ee;
+    --accent: #e8a317;
+    --danger: #e53935;
+    --text: #1c1c1e;
+    --text-2: #48484a;
+    --text-3: #8e8e93;
+    --border: #e5e5ea;
+    --shadow: 0 2px 12px rgba(0,0,0,0.07);
+    --shadow-lg: 0 8px 32px rgba(0,0,0,0.10);
+    --radius: 14px;
+    --radius-sm: 8px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Hind Siliguri', 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+  .page { display: none; min-height: 100vh; padding-bottom: 80px; }
+  .page.active { display: block; }
+
+  /* ── NAV ── */
+  .topbar {
+    background: var(--white);
+    padding: 0 16px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 1px 8px rgba(0,0,0,0.05);
+  }
+  .logo {
+    display: flex; align-items: center; gap: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700; font-size: 18px;
+    color: var(--primary);
+    cursor: pointer;
+    text-decoration: none;
+  }
+  .logo-icon {
+    width: 32px; height: 32px;
+    background: var(--primary);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-size: 16px;
+  }
+  .topbar-actions { display: flex; align-items: center; gap: 8px; }
+  .lang-btn {
+    background: var(--bg); border: none; border-radius: 20px;
+    padding: 4px 12px; font-size: 12px; font-weight: 600;
+    color: var(--text-2); cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .icon-btn {
+    width: 36px; height: 36px;
+    background: var(--bg); border: none; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; font-size: 16px;
+  }
+
+  /* ── BOTTOM NAV ── */
+  .bottomnav {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: var(--white);
+    border-top: 1px solid var(--border);
+    display: flex;
+    z-index: 100;
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .nav-item {
+    flex: 1; display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 8px 0; cursor: pointer;
+    border: none; background: none;
+    gap: 3px; transition: all 0.15s;
+  }
+  .nav-item .nav-icon { font-size: 20px; line-height: 1; }
+  .nav-item .nav-label { font-size: 10px; font-weight: 500; color: var(--text-3); font-family: 'Hind Siliguri', sans-serif; }
+  .nav-item.active .nav-icon { filter: none; }
+  .nav-item.active .nav-label { color: var(--primary); font-weight: 600; }
+  .nav-item.active { position: relative; }
+  .nav-item.active::after {
+    content: '';
+    position: absolute; top: 0; left: 20%; right: 20%; height: 2px;
+    background: var(--primary); border-radius: 0 0 3px 3px;
+  }
+
+  /* ── CHIPS ── */
+  .chips { display: flex; gap: 8px; overflow-x: auto; padding: 12px 16px; scrollbar-width: none; }
+  .chips::-webkit-scrollbar { display: none; }
+  .chip {
+    white-space: nowrap; padding: 6px 14px;
+    background: var(--white); border-radius: 20px;
+    font-size: 13px; font-weight: 500; color: var(--text-2);
+    border: 1px solid var(--border); cursor: pointer;
+    transition: all 0.15s; font-family: 'Hind Siliguri', sans-serif;
+  }
+  .chip.active { background: var(--primary); color: white; border-color: var(--primary); }
+
+  /* ── CARDS ── */
+  .card {
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .card:active { transform: scale(0.99); }
+
+  /* ── SECTION HEADER ── */
+  .section-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 16px 8px;
+  }
+  .section-title {
+    font-size: 17px; font-weight: 700;
+    font-family: 'Hind Siliguri', sans-serif;
+  }
+  .see-all {
+    font-size: 13px; color: var(--primary); font-weight: 600;
+    cursor: pointer; background: none; border: none;
+    font-family: 'Hind Siliguri', sans-serif;
+  }
+
+  /* ── STATUS BADGE ── */
+  .badge {
+    display: inline-flex; align-items: center; gap: 4px;
+    padding: 3px 10px; border-radius: 20px;
+    font-size: 11px; font-weight: 600;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .badge-pending { background: #fff3cd; color: #856404; }
+  .badge-progress { background: #cce5ff; color: #004085; }
+  .badge-solved { background: #d4edda; color: #155724; }
+  .badge-unverified { background: #f8d7da; color: #721c24; }
+  .badge-new { background: var(--primary-light); color: var(--primary); }
+
+  /* ════════════════════════
+     PAGE: HOME
+  ════════════════════════ */
+  .hero {
+    background: linear-gradient(135deg, var(--primary) 0%, #2d9e5f 100%);
+    padding: 24px 16px 28px;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '🏙️';
+    position: absolute; right: -10px; bottom: -10px;
+    font-size: 100px; opacity: 0.08;
+  }
+  .hero-label {
+    font-size: 11px; font-weight: 600; letter-spacing: 1.5px;
+    color: rgba(255,255,255,0.7); text-transform: uppercase;
+    margin-bottom: 6px; font-family: 'DM Sans', sans-serif;
+  }
+  .hero-title {
+    font-size: 26px; font-weight: 700; color: white;
+    line-height: 1.25; margin-bottom: 8px;
+    font-family: 'Hind Siliguri', sans-serif;
+  }
+  .hero-sub {
+    font-size: 13px; color: rgba(255,255,255,0.8);
+    font-family: 'Hind Siliguri', sans-serif;
+  }
+  .hero-stats {
+    display: flex; gap: 16px; margin-top: 20px;
+  }
+  .hero-stat {
+    background: rgba(255,255,255,0.15);
+    border-radius: 10px; padding: 10px 14px;
+    flex: 1;
+  }
+  .hero-stat-num {
+    font-size: 22px; font-weight: 700; color: white;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .hero-stat-label {
+    font-size: 11px; color: rgba(255,255,255,0.75);
+    font-family: 'Hind Siliguri', sans-serif;
+  }
+
+  .quick-actions {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 10px; padding: 16px;
+  }
+  .qa-item {
+    background: var(--white); border-radius: var(--radius-sm);
+    padding: 12px 8px; display: flex; flex-direction: column;
+    align-items: center; gap: 6px; cursor: pointer;
+    box-shadow: var(--shadow); transition: transform 0.15s;
+    border: none;
+  }
+  .qa-item:active { transform: scale(0.96); }
+  .qa-icon { font-size: 24px; line-height: 1; }
+  .qa-label {
+    font-size: 11px; font-weight: 500; color: var(--text-2);
+    text-align: center; font-family: 'Hind Siliguri', sans-serif;
+  }
+
+  .news-card-home {
+    margin: 0 16px 12px;
+    padding: 14px;
+  }
+  .news-meta {
+    display: flex; align-items: center; gap: 8px; margin-bottom: 8px;
+  }
+  .news-cat {
+    font-size: 11px; font-weight: 600; color: var(--primary);
+    background: var(--primary-light); padding: 2px 8px; border-radius: 20px;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .news-time { font-size: 11px; color: var(--text-3); font-family: 'DM Sans', sans-serif; }
+  .news-title-home {
+    font-size: 15px; font-weight: 600; line-height: 1.4;
+    margin-bottom: 8px; font-family: 'Hind Siliguri', sans-serif;
+  }
+  .news-thumb {
+    width: 100%; height: 160px; background: linear-gradient(135deg, #e8f5ee, #c8e6d5);
+    border-radius: 8px; margin-bottom: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 40px;
+  }
+  .news-actions {
+    display: flex; gap: 16px; padding-top: 8px;
+    border-top: 1px solid var(--border);
+  }
+  .news-action {
+    display: flex; align-items: center; gap: 4px;
+    font-size: 13px; color: var(--text-3); cursor: pointer;
+    background: none; border: none;
+    font-family: 'Hind Siliguri', sans-serif;
+  }
+
+  .alert-banner {
+    margin: 0 16px 12px;
+    background: #fff8e1; border-radius: var(--radius-sm);
+    padding: 12px 14px;
+    border-left: 4px solid var(--accent);
+    display: flex; align-items: flex-start; gap: 10px;
+  }
+  .alert-icon { font-size: 18px; margin-top: 1px; }
+  .alert-text { font-size: 13px; font-family: 'Hind Siliguri', sans-serif; color: var(--text); line-height: 1.5; }
+
+  /* ════════════════════════
+     PAGE: NEWS FEED
+  ════════════════════════ */
+  .post-btn {
+    margin: 12px 16px;
+    background: var(--white); border-radius: var(--radius);
+    padding: 12px 14px; box-shadow: var(--shadow);
+    display: flex; align-items: center; gap: 10px; cursor: pointer;
+    border: none; width: calc(100% - 32px);
+  }
+  .post-avatar {
+    width: 36px; height: 36px; background: var(--primary-light);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: 16px; flex-shrink: 0;
+  }
+  .post-placeholder {
+    color: var(--text-3); font-size: 14px;
+    font-family: 'Hind Siliguri', sans-serif;
+  }
+
+  .news-full-card {
+    margin: 0 16px 12px; padding: 14px;
+  }
+  .news-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 10px; }
+  .news-author { display: flex; align-items: center; gap: 10px; }
+  .author-avatar {
+    width: 38px; height: 38px; border-radius: 50%;
+    background: var(--primary-light); display: flex; align-items: center; justify-content: center; font-size: 18px;
+  }
+  .author-name { font-size: 14px; font-weight: 600; font-family: 'DM Sans', sans-serif; }
+  .author-time { font-size: 11px; color: var(--text-3); font-family: 'DM Sans', sans-serif; }
+  .news-body { font-size: 14px; line-height: 1.6; margin-bottom: 10px; font-family: 'Hind Siliguri', sans-serif; }
+  .news-img {
+    width: 100%; height: 180px;
+    background: linear-gradient(135deg, #e8f5ee 0%, #d0eadc 100%);
+    border-radius: 8px; margin-bottom: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 48px;
+  }
+  .news-img.road { background: linear-gradient(135deg, #fce4ec, #f8bbd0); }
+  .news-img.water { background: linear-gradient(135deg, #e3f2fd, #bbdefb); }
+
+  /* ════════════════════════
+     PAGE: COMPLAINT
+  ════════════════════════ */
+  .complaint-stats {
+    display: grid; grid-template-columns: repeat(3,1fr);
+    gap: 10px; padding: 14px 16px;
+  }
+  .cstat {
+    background: var(--white); border-radius: var(--radius-sm);
+    padding: 12px; text-align: center; box-shadow: var(--shadow);
+  }
+  .cstat-num { font-size: 24px; font-weight: 700; font-family: 'DM Sans', sans-serif; }
+  .cstat-label { font-size: 11px; color: var(--text-3); font-family: 'Hind Siliguri', sans-serif; }
+  .cstat.pending .cstat-num { color: #856404; }
+  .cstat.progress .cstat-num { color: #004085; }
+  .cstat.solved .cstat-num { color: var(--primary); }
+
+  .complaint-card {
+    margin: 0 16px 12px; padding: 14px;
+  }
+  .complaint-header {
+    display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px;
+  }
+  .complaint-cat {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 13px; font-weight: 600; font-family: 'DM Sans', sans-serif;
+    color: var(--text-2);
+  }
+  .complaint-title { font-size: 15px; font-weight: 600; margin-bottom: 6px; font-family: 'Hind Siliguri', sans-serif; }
+  .complaint-body { font-size: 13px; color: var(--text-2); line-height: 1.5; margin-bottom: 10px; font-family: 'Hind Siliguri', sans-serif; }
+  .complaint-img {
+    width: 100%; height: 130px;
+    border-radius: 8px; margin-bottom: 10px;
+    display: flex; align-items: center; justify-content: center; font-size: 36px;
+    background: linear-gradient(135deg, #fce4ec, #f8bbd0);
+  }
+  .complaint-footer {
+    display: flex; align-items: center; justify-content: space-between;
+    padding-top: 8px; border-top: 1px solid var(--border);
+  }
+  .complaint-meta { font-size: 11px; color: var(--text-3); font-family: 'DM Sans', sans-serif; }
+  .upvote-btn {
+    display: flex; align-items: center; gap: 4px;
+    background: var(--bg); border: none; border-radius: 20px;
+    padding: 4px 12px; font-size: 12px; font-weight: 600;
+    cursor: pointer; color: var(--text-2); font-family: 'DM Sans', sans-serif;
+  }
+
+  .fab {
+    position: fixed; bottom: 90px; right: 20px;
+    width: 52px; height: 52px;
+    background: var(--primary); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; color: white; cursor: pointer;
+    box-shadow: 0 4px 16px rgba(26,107,60,0.4);
+    border: none; z-index: 50;
+    transition: transform 0.15s;
+  }
+  .fab:active { transform: scale(0.93); }
+
+  /* ════════════════════════
+     PAGE: GOVT DASHBOARD
+  ════════════════════════ */
+  .budget-hero {
+    background: linear-gradient(135deg, #1a3a6b 0%, #2d5fa8 100%);
+    padding: 20px 16px 24px;
+  }
+  .budget-label {
+    font-size: 11px; font-weight: 600; letter-spacing: 1.5px;
+    color: rgba(255,255,255,0.6); text-transform: uppercase;
+    margin-bottom: 4px; font-family: 'DM Sans', sans-serif;
+  }
+  .budget-amount {
+    font-size: 32px; font-weight: 700; color: white;
+    font-family: 'DM Sans', sans-serif; margin-bottom: 4px;
+  }
+  .budget-year { font-size: 13px; color: rgba(255,255,255,0.7); font-family: 'DM Sans', sans-serif; }
+  .budget-bars { margin-top: 16px; display: flex; flex-direction: column; gap: 8px; }
+  .budget-bar-item { display: flex; flex-direction: column; gap: 4px; }
+  .budget-bar-label { display: flex; justify-content: space-between; }
+  .budget-bar-name { font-size: 12px; color: rgba(255,255,255,0.8); font-family: 'Hind Siliguri', sans-serif; }
+  .budget-bar-pct { font-size: 12px; color: white; font-weight: 600; font-family: 'DM Sans', sans-serif; }
+  .bbar-track { height: 6px; background: rgba(255,255,255,0.2); border-radius: 3px; }
+  .bbar-fill { height: 6px; background: white; border-radius: 3px; transition: width 0.8s ease; }
+
+  .project-card {
+    margin: 0 16px 12px; padding: 14px;
+  }
+  .project-header { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 10px; }
+  .project-icon {
+    width: 44px; height: 44px; border-radius: 10px;
+    background: var(--primary-light);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; flex-shrink: 0;
+  }
+  .project-title { font-size: 15px; font-weight: 600; margin-bottom: 3px; font-family: 'Hind Siliguri', sans-serif; }
+  .project-budget { font-size: 12px; color: var(--primary); font-weight: 600; font-family: 'DM Sans', sans-serif; }
+  .progress-bar { height: 6px; background: var(--border); border-radius: 3px; margin-bottom: 4px; }
+  .progress-fill { height: 6px; border-radius: 3px; background: var(--primary); }
+  .progress-label {
+    display: flex; justify-content: space-between;
+    font-size: 11px; color: var(--text-3); font-family: 'DM Sans', sans-serif;
+  }
+  .project-footer {
+    margin-top: 10px; padding-top: 8px; border-top: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .source-link {
+    font-size: 11px; color: var(--primary); font-weight: 500;
+    cursor: pointer; text-decoration: none; font-family: 'DM Sans', sans-serif;
+  }
+
+  /* ════════════════════════
+     MODAL
+  ════════════════════════ */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,0.45); z-index: 200;
+    align-items: flex-end; justify-content: center;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: var(--white); border-radius: 20px 20px 0 0;
+    width: 100%; max-height: 90vh; overflow-y: auto;
+    padding: 20px 16px 32px;
+    animation: slideUp 0.25s ease;
+  }
+  @keyframes slideUp { from { transform: translateY(100px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+  .modal-handle {
+    width: 36px; height: 4px; background: var(--border); border-radius: 2px;
+    margin: 0 auto 16px;
+  }
+  .modal-title { font-size: 18px; font-weight: 700; margin-bottom: 16px; font-family: 'Hind Siliguri', sans-serif; }
+  .form-group { margin-bottom: 14px; }
+  .form-label { font-size: 13px; font-weight: 600; color: var(--text-2); margin-bottom: 6px; display: block; font-family: 'Hind Siliguri', sans-serif; }
+  .form-input, .form-select, .form-textarea {
+    width: 100%; padding: 11px 14px;
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: 10px; font-size: 14px;
+    color: var(--text); font-family: 'Hind Siliguri', sans-serif;
+    outline: none; transition: border-color 0.15s;
+  }
+  .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--primary); }
+  .form-textarea { resize: none; min-height: 90px; }
+  .cat-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .cat-option {
+    padding: 10px; background: var(--bg); border: 2px solid var(--border);
+    border-radius: 10px; text-align: center; cursor: pointer;
+    font-size: 13px; font-family: 'Hind Siliguri', sans-serif;
+    transition: all 0.15s;
+  }
+  .cat-option.selected { border-color: var(--primary); background: var(--primary-light); color: var(--primary); font-weight: 600; }
+  .upload-box {
+    background: var(--bg); border: 2px dashed var(--border);
+    border-radius: 10px; padding: 24px; text-align: center; cursor: pointer;
+  }
+  .upload-icon { font-size: 28px; margin-bottom: 8px; }
+  .upload-text { font-size: 13px; color: var(--text-3); font-family: 'Hind Siliguri', sans-serif; }
+  .anon-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 14px; background: var(--bg); border-radius: 10px; margin-bottom: 14px;
+  }
+  .anon-label { font-size: 14px; font-family: 'Hind Siliguri', sans-serif; }
+  .toggle {
+    width: 44px; height: 26px; background: var(--border); border-radius: 13px;
+    position: relative; cursor: pointer; transition: background 0.2s;
+  }
+  .toggle.on { background: var(--primary); }
+  .toggle::after {
+    content: ''; position: absolute;
+    width: 20px; height: 20px; background: white;
+    border-radius: 50%; top: 3px; left: 3px;
+    transition: left 0.2s;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  }
+  .toggle.on::after { left: 21px; }
+  .btn-primary {
+    width: 100%; padding: 14px;
+    background: var(--primary); color: white;
+    border: none; border-radius: 12px;
+    font-size: 15px; font-weight: 600; cursor: pointer;
+    font-family: 'Hind Siliguri', sans-serif;
+    transition: background 0.15s;
+  }
+  .btn-primary:active { background: #155c32; }
+  .disclaimer {
+    font-size: 11px; color: var(--text-3); text-align: center;
+    margin-top: 12px; font-family: 'DM Sans', sans-serif; line-height: 1.5;
+  }
+
+  /* TOAST */
+  .toast {
+    position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%) translateY(20px);
+    background: #1c1c1e; color: white; padding: 10px 20px; border-radius: 20px;
+    font-size: 13px; font-family: 'Hind Siliguri', sans-serif;
+    opacity: 0; transition: all 0.3s; pointer-events: none; z-index: 300;
+    white-space: nowrap;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <a class="logo" onclick="goPage('home')">
+    <div class="logo-icon">ক</div>
+    কেরানীগঞ্জ.com
+  </a>
+  <div class="topbar-actions">
+    <button class="lang-btn" onclick="showToast('ভাষা পরিবর্তন হবে শীঘ্রই')">বাং / EN</button>
+    <button class="icon-btn" onclick="showToast('বিজ্ঞপ্তি')">🔔</button>
+  </div>
+</div>
+
+<!-- ══════════ PAGE: HOME ══════════ -->
+<div id="page-home" class="page active">
+  <div class="hero">
+    <div class="hero-label">কেরানীগঞ্জ উপজেলা</div>
+    <div class="hero-title">আপনার এলাকার খবর,<br>আপনার হাতে</div>
+    <div class="hero-sub">স্বচ্ছতা ও জবাবদিহিতার প্ল্যাটফর্ম</div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-num">128</div>
+        <div class="hero-stat-label">অভিযোগ</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">14</div>
+        <div class="hero-stat-label">প্রকল্প চলমান</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">4.2K</div>
+        <div class="hero-stat-label">ব্যবহারকারী</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quick-actions">
+    <button class="qa-item" onclick="goPage('news')">
+      <span class="qa-icon">📰</span>
+      <span class="qa-label">সংবাদ</span>
+    </button>
+    <button class="qa-item" onclick="goPage('complaint')">
+      <span class="qa-icon">🚨</span>
+      <span class="qa-label">অভিযোগ</span>
+    </button>
+    <button class="qa-item" onclick="goPage('govt')">
+      <span class="qa-icon">🏛️</span>
+      <span class="qa-label">প্রকল্প</span>
+    </button>
+    <button class="qa-item" onclick="showToast('শীঘ্রই আসছে!')">
+      <span class="qa-icon">📍</span>
+      <span class="qa-label">ডিরেক্টরি</span>
+    </button>
+  </div>
+
+  <div class="alert-banner">
+    <div class="alert-icon">⚠️</div>
+    <div class="alert-text"><strong>নোটিশ:</strong> ১৫ মার্চ থেকে রহিমপুর রোডে পানির লাইন মেরামত চলবে। পানি সরবরাহ বিঘ্নিত হতে পারে।</div>
+  </div>
+
+  <div class="section-header">
+    <span class="section-title">সর্বশেষ খবর</span>
+    <button class="see-all" onclick="goPage('news')">সব দেখুন →</button>
+  </div>
+
+  <div class="card news-card-home">
+    <div class="news-thumb">🏗️</div>
+    <div style="padding: 0 14px 14px">
+      <div class="news-meta">
+        <span class="news-cat">উন্নয়ন</span>
+        <span class="news-time">২ ঘণ্টা আগে</span>
+      </div>
+      <div class="news-title-home">কেরানীগঞ্জ-ঢাকা সংযোগ সড়কে নতুন ব্রিজ নির্মাণ শুরু হচ্ছে আগামী মাসে</div>
+      <div class="news-actions">
+        <button class="news-action" onclick="showToast('👍 পছন্দ করেছেন')">👍 142</button>
+        <button class="news-action" onclick="showToast('মন্তব্য ফিচার শীঘ্রই')">💬 28</button>
+        <button class="news-action" onclick="showToast('শেয়ার করা হয়েছে')">↗️ শেয়ার</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card news-card-home">
+    <div style="padding: 14px">
+      <div class="news-meta">
+        <span class="news-cat">স্বাস্থ্য</span>
+        <span class="news-time">৫ ঘণ্টা আগে</span>
+        <span class="badge badge-unverified">অযাচাইকৃত</span>
+      </div>
+      <div class="news-title-home">উপজেলা স্বাস্থ্য কমপ্লেক্সে বিনামূল্যে চক্ষু পরীক্ষা ক্যাম্প আয়োজন</div>
+      <div class="news-actions">
+        <button class="news-action" onclick="showToast('👍 পছন্দ করেছেন')">👍 89</button>
+        <button class="news-action">💬 12</button>
+        <button class="news-action" onclick="showToast('শেয়ার করা হয়েছে')">↗️ শেয়ার</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-header" style="margin-top:4px">
+    <span class="section-title">সাম্প্রতিক অভিযোগ</span>
+    <button class="see-all" onclick="goPage('complaint')">সব দেখুন →</button>
+  </div>
+
+  <div class="card" style="margin: 0 16px 16px; padding: 14px; display:flex; gap:12px; align-items:flex-start">
+    <div style="font-size:24px">🛣️</div>
+    <div style="flex:1">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start">
+        <div style="font-size:14px; font-weight:600; font-family:'Hind Siliguri',sans-serif; margin-bottom:4px">মালিক নগর রোডে বড় গর্ত</div>
+        <span class="badge badge-progress">চলমান</span>
+      </div>
+      <div style="font-size:12px; color:var(--text-3); font-family:'DM Sans',sans-serif">রহিমা বেগম • ৩ দিন আগে • 47 ভোট</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ PAGE: NEWS ══════════ -->
+<div id="page-news" class="page">
+  <div class="chips">
+    <div class="chip active">সব</div>
+    <div class="chip">উন্নয়ন</div>
+    <div class="chip">স্বাস্থ্য</div>
+    <div class="chip">শিক্ষা</div>
+    <div class="chip">দুর্নীতি</div>
+    <div class="chip">আইন-শৃঙ্খলা</div>
+  </div>
+
+  <button class="post-btn" onclick="openPostModal()">
+    <div class="post-avatar">✍️</div>
+    <div class="post-placeholder">এলাকার কোনো খবর জানান…</div>
+  </button>
+
+  <!-- Post 1 -->
+  <div class="card news-full-card">
+    <div class="news-header">
+      <div class="news-author">
+        <div class="author-avatar">👤</div>
+        <div>
+          <div class="author-name">মো. রফিকুল ইসলাম</div>
+          <div class="author-time">আজ সকাল ১০:৩২ • উন্নয়ন</div>
+        </div>
+      </div>
+      <span class="badge badge-new">নতুন</span>
+    </div>
+    <div class="news-img">🏗️</div>
+    <div class="news-body">কেরানীগঞ্জ-ঢাকা সংযোগ সড়কে নতুন ব্রিজ নির্মাণ কাজ আগামী ১ এপ্রিল থেকে শুরু হবে। ঠিকাদারি প্রতিষ্ঠান মাঠ পর্যায়ের জরিপ সম্পন্ন করেছে। প্রকল্পটি ১৮ মাসে শেষ হওয়ার কথা।</div>
+    <div style="margin-bottom:10px">
+      <span class="badge badge-new" style="background:#e3f2fd; color:#0d47a1">📎 সূত্র: উপজেলা ওয়েবসাইট</span>
+    </div>
+    <div class="news-actions">
+      <button class="news-action" onclick="showToast('👍 পছন্দ করেছেন')">👍 142</button>
+      <button class="news-action" onclick="showToast('মন্তব্য শীঘ্রই')">💬 28</button>
+      <button class="news-action" onclick="showToast('শেয়ার করা হয়েছে')">↗️ শেয়ার</button>
+    </div>
+  </div>
+
+  <!-- Post 2 -->
+  <div class="card news-full-card">
+    <div class="news-header">
+      <div class="news-author">
+        <div class="author-avatar">🎭</div>
+        <div>
+          <div class="author-name">익명 নাগরিক</div>
+          <div class="author-time">গতকাল রাত ৯:১৫ • দুর্নীতি</div>
+        </div>
+      </div>
+      <span class="badge badge-unverified">অযাচাইকৃত</span>
+    </div>
+    <div class="news-body">শুনেছি উপজেলা পরিষদের রাস্তা মেরামত বরাদ্দের একটি অংশ অন্যত্র সরিয়ে নেওয়া হচ্ছে। নির্ভরযোগ্য সূত্র থেকে জানা গেছে — কেউ যদি আরো তথ্য দিতে পারেন জানাবেন।</div>
+    <div class="news-actions">
+      <button class="news-action" onclick="showToast('👍 পছন্দ করেছেন')">👍 215</button>
+      <button class="news-action">💬 67</button>
+      <button class="news-action" onclick="showToast('রিপোর্ট সম্পন্ন')">🚩 রিপোর্ট</button>
+    </div>
+  </div>
+
+  <!-- Post 3 -->
+  <div class="card news-full-card">
+    <div class="news-header">
+      <div class="news-author">
+        <div class="author-avatar">👩</div>
+        <div>
+          <div class="author-name">সালমা আক্তার</div>
+          <div class="author-time">২ দিন আগে • স্বাস্থ্য</div>
+        </div>
+      </div>
+    </div>
+    <div class="news-img water">🏥</div>
+    <div class="news-body">উপজেলা স্বাস্থ্য কমপ্লেক্সে আগামী ২০ মার্চ বিনামূল্যে চক্ষু পরীক্ষা ক্যাম্প অনুষ্ঠিত হবে। সকাল ৯টা থেকে বিকেল ৪টা পর্যন্ত। আগ্রহীরা সরাসরি চলে আসতে পারেন।</div>
+    <div class="news-actions">
+      <button class="news-action" onclick="showToast('👍 পছন্দ করেছেন')">👍 89</button>
+      <button class="news-action">💬 12</button>
+      <button class="news-action" onclick="showToast('শেয়ার করা হয়েছে')">↗️ শেয়ার</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ PAGE: COMPLAINT ══════════ -->
+<div id="page-complaint" class="page">
+  <div class="complaint-stats">
+    <div class="cstat pending">
+      <div class="cstat-num">43</div>
+      <div class="cstat-label">অপেক্ষমাণ</div>
+    </div>
+    <div class="cstat progress">
+      <div class="cstat-num">29</div>
+      <div class="cstat-label">চলমান</div>
+    </div>
+    <div class="cstat solved">
+      <div class="cstat-num">56</div>
+      <div class="cstat-label">সমাধান</div>
+    </div>
+  </div>
+
+  <div class="chips">
+    <div class="chip active">সব</div>
+    <div class="chip">🛣️ রাস্তা</div>
+    <div class="chip">💧 পানি</div>
+    <div class="chip">⚡ বিদ্যুৎ</div>
+    <div class="chip">🚫 দুর্নীতি</div>
+    <div class="chip">🗑️ বর্জ্য</div>
+  </div>
+
+  <div class="card complaint-card">
+    <div class="complaint-header">
+      <div class="complaint-cat">🛣️ রাস্তা</div>
+      <span class="badge badge-progress">চলমান</span>
+    </div>
+    <div class="complaint-img">🕳️</div>
+    <div class="complaint-title">মালিক নগর রোডে বিশাল গর্ত — যানবাহন চলাচল বিপজ্জনক</div>
+    <div class="complaint-body">মালিক নগর থেকে আলুবাজার যাওয়ার রাস্তায় মাঝামাঝি অংশে বড় গর্ত হয়েছে। বৃষ্টির পর আরো খারাপ হচ্ছে। ইতিমধ্যে ২টি রিকশা উল্টে গেছে।</div>
+    <div class="complaint-footer">
+      <span class="complaint-meta">রহিমা বেগম • ৩ দিন আগে</span>
+      <button class="upvote-btn" onclick="showToast('ভোট দেওয়া হয়েছে')">👍 47 ভোট</button>
+    </div>
+  </div>
+
+  <div class="card complaint-card">
+    <div class="complaint-header">
+      <div class="complaint-cat">💧 পানি</div>
+      <span class="badge badge-pending">অপেক্ষমাণ</span>
+    </div>
+    <div class="complaint-title">৫ দিন ধরে পানি নেই — রহিমপুর ব্লক-বি</div>
+    <div class="complaint-body">রহিমপুর আবাসিক এলাকার বি ব্লকে গত ৫ দিন ধরে পানির সরবরাহ নেই। WASA-তে ফোন দিয়েছি কিন্তু কোনো সাড়া নেই। প্রায় ৫০টি পরিবার ভোগান্তিতে।</div>
+    <div class="complaint-footer">
+      <span class="complaint-meta">익명 • ১ দিন আগে</span>
+      <button class="upvote-btn" onclick="showToast('ভোট দেওয়া হয়েছে')">👍 93 ভোট</button>
+    </div>
+  </div>
+
+  <div class="card complaint-card">
+    <div class="complaint-header">
+      <div class="complaint-cat">⚡ বিদ্যুৎ</div>
+      <span class="badge badge-solved">সমাধান</span>
+    </div>
+    <div class="complaint-title">ট্রান্সফর্মার নষ্ট — বাজার এলাকা অন্ধকার</div>
+    <div class="complaint-body">কেন্দ্রীয় বাজারের ট্রান্সফর্মার নষ্ট হয়ে ৩ দিন বিদ্যুৎ ছিল না। ব্যবসায়ীদের ব্যাপক ক্ষতি হয়েছে।</div>
+    <div class="complaint-footer">
+      <span class="complaint-meta">করিম সাহেব • ৭ দিন আগে</span>
+      <button class="upvote-btn">👍 31 ভোট</button>
+    </div>
+  </div>
+
+  <button class="fab" onclick="openComplaintModal()">+</button>
+</div>
+
+<!-- ══════════ PAGE: GOVT ══════════ -->
+<div id="page-govt" class="page">
+  <div class="budget-hero">
+    <div class="budget-label">২০২৪–২৫ অর্থবছর বাজেট</div>
+    <div class="budget-amount">৳ ৪৮.৬ কোটি</div>
+    <div class="budget-year">কেরানীগঞ্জ উপজেলা পরিষদ</div>
+    <div class="budget-bars">
+      <div class="budget-bar-item">
+        <div class="budget-bar-label">
+          <span class="budget-bar-name">🛣️ অবকাঠামো ও রাস্তা</span>
+          <span class="budget-bar-pct">38%</span>
+        </div>
+        <div class="bbar-track"><div class="bbar-fill" style="width:38%"></div></div>
+      </div>
+      <div class="budget-bar-item">
+        <div class="budget-bar-label">
+          <span class="budget-bar-name">🏥 স্বাস্থ্য</span>
+          <span class="budget-bar-pct">22%</span>
+        </div>
+        <div class="bbar-track"><div class="bbar-fill" style="width:22%"></div></div>
+      </div>
+      <div class="budget-bar-item">
+        <div class="budget-bar-label">
+          <span class="budget-bar-name">🎓 শিক্ষা</span>
+          <span class="budget-bar-pct">18%</span>
+        </div>
+        <div class="bbar-track"><div class="bbar-fill" style="width:18%"></div></div>
+      </div>
+      <div class="budget-bar-item">
+        <div class="budget-bar-label">
+          <span class="budget-bar-name">💧 পানি ও পয়ঃনিষ্কাশন</span>
+          <span class="budget-bar-pct">14%</span>
+        </div>
+        <div class="bbar-track"><div class="bbar-fill" style="width:14%"></div></div>
+      </div>
+      <div class="budget-bar-item">
+        <div class="budget-bar-label">
+          <span class="budget-bar-name">📋 প্রশাসন ও অন্যান্য</span>
+          <span class="budget-bar-pct">8%</span>
+        </div>
+        <div class="bbar-track"><div class="bbar-fill" style="width:8%"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-header">
+    <span class="section-title">চলমান প্রকল্প</span>
+    <span style="font-size:13px; color:var(--text-3); font-family:'DM Sans',sans-serif">১৪টি প্রকল্প</span>
+  </div>
+
+  <div class="card project-card">
+    <div class="project-header">
+      <div class="project-icon">🌉</div>
+      <div>
+        <div class="project-title">বুড়িগঙ্গা সংযোগ সেতু সম্প্রসারণ</div>
+        <div class="project-budget">বরাদ্দ: ৳ ১২.৪ কোটি</div>
+      </div>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" style="width:35%"></div></div>
+    <div class="progress-label"><span>৩৫% সম্পন্ন</span><span>শেষ: ডিসেম্বর ২০২৫</span></div>
+    <div class="project-footer">
+      <div>
+        <span class="badge badge-progress">নির্মাণাধীন</span>
+      </div>
+      <a class="source-link" onclick="showToast('সূত্র লিংক খুলছে...')">📎 সূত্র দেখুন</a>
+    </div>
+  </div>
+
+  <div class="card project-card">
+    <div class="project-header">
+      <div class="project-icon">🏫</div>
+      <div>
+        <div class="project-title">৫টি সরকারি বিদ্যালয় সংস্কার</div>
+        <div class="project-budget">বরাদ্দ: ৳ ৩.৮ কোটি</div>
+      </div>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" style="width:72%"></div></div>
+    <div class="progress-label"><span>৭২% সম্পন্ন</span><span>শেষ: জুন ২০২৫</span></div>
+    <div class="project-footer">
+      <span class="badge badge-progress">চলমান</span>
+      <a class="source-link" onclick="showToast('সূত্র লিংক খুলছে...')">📎 সূত্র দেখুন</a>
+    </div>
+  </div>
+
+  <div class="card project-card">
+    <div class="project-header">
+      <div class="project-icon">💧</div>
+      <div>
+        <div class="project-title">বিশুদ্ধ পানি সরবরাহ প্রকল্প</div>
+        <div class="project-budget">বরাদ্দ: ৳ ৬.২ কোটি</div>
+      </div>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" style="width:90%; background: var(--primary)"></div></div>
+    <div class="progress-label"><span>৯০% সম্পন্ন</span><span>শেষ: মার্চ ২০২৫</span></div>
+    <div class="project-footer">
+      <span class="badge badge-solved">প্রায় শেষ</span>
+      <a class="source-link" onclick="showToast('সূত্র লিংক খুলছে...')">📎 সূত্র দেখুন</a>
+    </div>
+  </div>
+
+  <div style="margin: 0 16px; padding: 12px; background: #fff8e1; border-radius: 10px; margin-bottom: 16px;">
+    <div style="font-size:12px; color:#856404; font-family:'Hind Siliguri',sans-serif; line-height:1.5">
+      ⚠️ <strong>দাবিত্যাগ:</strong> এই তথ্য সরকারি নথি থেকে সংগৃহীত। তবুও সর্বদা সরকারি উৎস যাচাই করুন। এটি কোনো সরকারি প্ল্যাটফর্ম নয়।
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ BOTTOM NAV ══════════ -->
+<nav class="bottomnav">
+  <button class="nav-item active" id="nav-home" onclick="goPage('home')">
+    <span class="nav-icon">🏠</span>
+    <span class="nav-label">হোম</span>
+  </button>
+  <button class="nav-item" id="nav-news" onclick="goPage('news')">
+    <span class="nav-icon">📰</span>
+    <span class="nav-label">সংবাদ</span>
+  </button>
+  <button class="nav-item" id="nav-complaint" onclick="goPage('complaint')">
+    <span class="nav-icon">🚨</span>
+    <span class="nav-label">অভিযোগ</span>
+  </button>
+  <button class="nav-item" id="nav-govt" onclick="goPage('govt')">
+    <span class="nav-icon">🏛️</span>
+    <span class="nav-label">প্রকল্প</span>
+  </button>
+</nav>
+
+<!-- ══════════ MODAL: POST ══════════ -->
+<div class="modal-overlay" id="modal-post" onclick="closeModal('modal-post')">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-handle"></div>
+    <div class="modal-title">নতুন পোস্ট করুন</div>
+    <div class="form-group">
+      <label class="form-label">শিরোনাম</label>
+      <input class="form-input" placeholder="সংক্ষিপ্ত শিরোনাম লিখুন…">
+    </div>
+    <div class="form-group">
+      <label class="form-label">বিবরণ</label>
+      <textarea class="form-textarea" placeholder="বিস্তারিত লিখুন…"></textarea>
+    </div>
+    <div class="form-group">
+      <label class="form-label">বিভাগ</label>
+      <select class="form-select">
+        <option>উন্নয়ন</option>
+        <option>স্বাস্থ্য</option>
+        <option>শিক্ষা</option>
+        <option>দুর্নীতি</option>
+        <option>আইন-শৃঙ্খলা</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label class="form-label">ছবি/ভিডিও (ঐচ্ছিক)</label>
+      <div class="upload-box" onclick="showToast('ফাইল আপলোড শীঘ্রই')">
+        <div class="upload-icon">📷</div>
+        <div class="upload-text">ছবি বা ভিডিও যোগ করুন</div>
+      </div>
+    </div>
+    <div class="anon-row">
+      <span class="anon-label">익명ভাবে পোস্ট করুন</span>
+      <div class="toggle" id="anon-toggle" onclick="this.classList.toggle('on')"></div>
+    </div>
+    <button class="btn-primary" onclick="closeModal('modal-post'); showToast('পোস্ট পর্যালোচনার জন্য পাঠানো হয়েছে ✅')">পোস্ট সাবমিট করুন</button>
+    <div class="disclaimer">Admin অনুমোদনের পর পোস্টটি প্রকাশিত হবে</div>
+  </div>
+</div>
+
+<!-- ══════════ MODAL: COMPLAINT ══════════ -->
+<div class="modal-overlay" id="modal-complaint" onclick="closeModal('modal-complaint')">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-handle"></div>
+    <div class="modal-title">নতুন অভিযোগ জানান</div>
+    <div class="form-group">
+      <label class="form-label">সমস্যার ধরন বেছে নিন</label>
+      <div class="cat-grid" id="cat-grid">
+        <div class="cat-option selected" onclick="selectCat(this)">🛣️ রাস্তা</div>
+        <div class="cat-option" onclick="selectCat(this)">💧 পানি</div>
+        <div class="cat-option" onclick="selectCat(this)">⚡ বিদ্যুৎ</div>
+        <div class="cat-option" onclick="selectCat(this)">🚫 দুর্নীতি</div>
+        <div class="cat-option" onclick="selectCat(this)">🗑️ বর্জ্য</div>
+        <div class="cat-option" onclick="selectCat(this)">🏫 শিক্ষা</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">শিরোনাম</label>
+      <input class="form-input" placeholder="সমস্যাটি সংক্ষেপে লিখুন…">
+    </div>
+    <div class="form-group">
+      <label class="form-label">বিস্তারিত বিবরণ</label>
+      <textarea class="form-textarea" placeholder="কোথায়, কী সমস্যা, কতদিন ধরে…"></textarea>
+    </div>
+    <div class="form-group">
+      <label class="form-label">ছবি/ভিডিও</label>
+      <div class="upload-box" onclick="showToast('ফাইল আপলোড শীঘ্রই')">
+        <div class="upload-icon">📷</div>
+        <div class="upload-text">প্রমাণের ছবি বা ভিডিও যোগ করুন</div>
+      </div>
+    </div>
+    <div class="anon-row">
+      <span class="anon-label">익명ভাবে জমা দিন</span>
+      <div class="toggle on" onclick="this.classList.toggle('on')"></div>
+    </div>
+    <button class="btn-primary" onclick="closeModal('modal-complaint'); showToast('অভিযোগ সফলভাবে জমা হয়েছে ✅')">অভিযোগ জমা দিন</button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+  function goPage(name) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    document.getElementById('page-' + name).classList.add('active');
+    document.getElementById('nav-' + name).classList.add('active');
+    window.scrollTo(0, 0);
+  }
+
+  function openPostModal() { document.getElementById('modal-post').classList.add('open'); }
+  function openComplaintModal() { document.getElementById('modal-complaint').classList.add('open'); }
+  function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+  function selectCat(el) {
+    document.querySelectorAll('#cat-grid .cat-option').forEach(c => c.classList.remove('selected'));
+    el.classList.add('selected');
+  }
+
+  let toastTimer;
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
+  }
+
+  // Chip selection
+  document.querySelectorAll('.chips').forEach(group => {
+    group.querySelectorAll('.chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        group.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+      });
+    });
+  });
+</script>
+</body>
+</html>
