@@ -4,199 +4,202 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>কেরানীগঞ্জ.com</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #f2f2f7;
-    --white: #ffffff;
-    --primary: #1a6b3c;
-    --primary-light: #e8f5ee;
-    --accent: #e8a317;
-    --danger: #e53935;
-    --text: #1c1c1e;
-    --text-2: #48484a;
-    --text-3: #8e8e93;
-    --border: #e5e5ea;
-    --shadow: 0 2px 12px rgba(0,0,0,0.07);
-    --radius: 14px;
-    --radius-sm: 8px;
-  }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: 'Hind Siliguri','DM Sans',sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; -webkit-font-smoothing: antialiased; }
-  .page { display: none; min-height: 100vh; padding-bottom: 80px; }
-  .page.active { display: block; }
+:root {
+  --bg: #f2f2f7;
+  --white: #ffffff;
+  --primary: #1a6b3c;
+  --primary-light: #e8f5ee;
+  --accent: #e8a317;
+  --danger: #e53935;
+  --danger-light: #fdecea;
+  --text: #1c1c1e;
+  --text-2: #48484a;
+  --text-3: #8e8e93;
+  --border: #e5e5ea;
+  --shadow: 0 2px 12px rgba(0,0,0,0.07);
+  --radius: 14px;
+  --radius-sm: 8px;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Hind Siliguri','DM Sans',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; -webkit-font-smoothing:antialiased; }
 
-  /* TOPBAR */
-  .topbar { background: var(--white); padding: 0 16px; height: 56px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid var(--border); box-shadow: 0 1px 8px rgba(0,0,0,0.05); }
-  .logo { display: flex; align-items: center; gap: 8px; font-family: 'DM Sans',sans-serif; font-weight: 700; font-size: 18px; color: var(--primary); cursor: pointer; text-decoration: none; }
-  .logo-icon { width: 32px; height: 32px; background: var(--primary); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-size: 16px; }
-  .topbar-actions { display: flex; align-items: center; gap: 8px; }
-  .login-btn { background: var(--primary); color: white; border: none; border-radius: 20px; padding: 6px 14px; font-size: 13px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px; font-family: 'DM Sans',sans-serif; }
-  .user-info { display: none; align-items: center; gap: 8px; }
-  .user-info img { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; }
-  .logout-btn { background: var(--bg); border: none; border-radius: 20px; padding: 4px 12px; font-size: 12px; font-weight: 600; color: var(--text-2); cursor: pointer; font-family: 'DM Sans',sans-serif; }
+/* ── TOPBAR ── */
+.topbar { background:var(--white); padding:0 16px; height:56px; display:flex; align-items:center; justify-content:space-between; position:sticky; top:0; z-index:100; border-bottom:1px solid var(--border); box-shadow:0 1px 8px rgba(0,0,0,0.05); }
+.logo { display:flex; align-items:center; gap:8px; font-family:'DM Sans',sans-serif; font-weight:700; font-size:18px; color:var(--primary); cursor:pointer; }
+.logo-icon { width:32px; height:32px; background:var(--primary); border-radius:8px; display:flex; align-items:center; justify-content:center; color:white; font-size:16px; }
+.topbar-actions { display:flex; align-items:center; gap:8px; }
+.login-btn { background:var(--primary); color:white; border:none; border-radius:20px; padding:6px 14px; font-size:13px; font-weight:600; cursor:pointer; display:flex; align-items:center; gap:6px; font-family:'DM Sans',sans-serif; }
+.user-info { display:none; align-items:center; gap:8px; }
+.user-info img { width:32px; height:32px; border-radius:50%; object-fit:cover; }
+.logout-btn { background:var(--bg); border:none; border-radius:20px; padding:5px 12px; font-size:12px; font-weight:600; color:var(--text-2); cursor:pointer; font-family:'DM Sans',sans-serif; }
 
-  /* BOTTOM NAV */
-  .bottomnav { position: fixed; bottom: 0; left: 0; right: 0; background: var(--white); border-top: 1px solid var(--border); display: flex; z-index: 100; padding-bottom: env(safe-area-inset-bottom); }
-  .nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 8px 0; cursor: pointer; border: none; background: none; gap: 3px; transition: all 0.15s; }
-  .nav-item .nav-icon { font-size: 20px; line-height: 1; }
-  .nav-item .nav-label { font-size: 10px; font-weight: 500; color: var(--text-3); font-family: 'Hind Siliguri',sans-serif; }
-  .nav-item.active .nav-label { color: var(--primary); font-weight: 600; }
-  .nav-item.active { position: relative; }
-  .nav-item.active::after { content: ''; position: absolute; top: 0; left: 20%; right: 20%; height: 2px; background: var(--primary); border-radius: 0 0 3px 3px; }
+/* ── PAGES ── */
+.page { display:none; min-height:100vh; padding-bottom:80px; }
+.page.active { display:block; }
 
-  /* CHIPS */
-  .chips { display: flex; gap: 8px; overflow-x: auto; padding: 12px 16px; scrollbar-width: none; }
-  .chips::-webkit-scrollbar { display: none; }
-  .chip { white-space: nowrap; padding: 6px 14px; background: var(--white); border-radius: 20px; font-size: 13px; font-weight: 500; color: var(--text-2); border: 1px solid var(--border); cursor: pointer; transition: all 0.15s; font-family: 'Hind Siliguri',sans-serif; }
-  .chip.active { background: var(--primary); color: white; border-color: var(--primary); }
+/* ── BOTTOM NAV ── */
+.bottomnav { position:fixed; bottom:0; left:0; right:0; background:var(--white); border-top:1px solid var(--border); display:flex; z-index:100; padding-bottom:env(safe-area-inset-bottom); }
+.nav-item { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:8px 0; cursor:pointer; border:none; background:none; gap:3px; }
+.nav-item .nav-icon { font-size:20px; line-height:1; }
+.nav-item .nav-label { font-size:10px; font-weight:500; color:var(--text-3); font-family:'Hind Siliguri',sans-serif; }
+.nav-item.active .nav-label { color:var(--primary); font-weight:600; }
+.nav-item.active { position:relative; }
+.nav-item.active::after { content:''; position:absolute; top:0; left:20%; right:20%; height:2px; background:var(--primary); border-radius:0 0 3px 3px; }
 
-  /* CARD */
-  .card { background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; transition: transform 0.15s; }
-  .card:active { transform: scale(0.99); }
+/* ── CHIPS ── */
+.chips { display:flex; gap:8px; overflow-x:auto; padding:12px 16px; scrollbar-width:none; }
+.chips::-webkit-scrollbar { display:none; }
+.chip { white-space:nowrap; padding:6px 14px; background:var(--white); border-radius:20px; font-size:13px; font-weight:500; color:var(--text-2); border:1px solid var(--border); cursor:pointer; transition:all 0.15s; font-family:'Hind Siliguri',sans-serif; }
+.chip.active { background:var(--primary); color:white; border-color:var(--primary); }
 
-  /* SECTION HEADER */
-  .section-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 16px 8px; }
-  .section-title { font-size: 17px; font-weight: 700; font-family: 'Hind Siliguri',sans-serif; }
-  .see-all { font-size: 13px; color: var(--primary); font-weight: 600; cursor: pointer; background: none; border: none; font-family: 'Hind Siliguri',sans-serif; }
+/* ── CARD ── */
+.card { background:var(--white); border-radius:var(--radius); box-shadow:var(--shadow); overflow:hidden; }
 
-  /* BADGE */
-  .badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; font-family: 'DM Sans',sans-serif; }
-  .badge-pending { background: #fff3cd; color: #856404; }
-  .badge-progress { background: #cce5ff; color: #004085; }
-  .badge-solved { background: #d4edda; color: #155724; }
-  .badge-unverified { background: #f8d7da; color: #721c24; }
-  .badge-new { background: var(--primary-light); color: var(--primary); }
+/* ── BADGE ── */
+.badge { display:inline-flex; align-items:center; padding:3px 10px; border-radius:20px; font-size:11px; font-weight:600; font-family:'DM Sans',sans-serif; }
+.badge-pending { background:#fff3cd; color:#856404; }
+.badge-progress { background:#cce5ff; color:#004085; }
+.badge-solved { background:#d4edda; color:#155724; }
+.badge-unverified { background:#f8d7da; color:#721c24; }
+.badge-new { background:var(--primary-light); color:var(--primary); }
 
-  /* HOME */
-  .hero { background: linear-gradient(135deg, var(--primary) 0%, #2d9e5f 100%); padding: 24px 16px 28px; position: relative; overflow: hidden; }
-  .hero::before { content: '🏙️'; position: absolute; right: -10px; bottom: -10px; font-size: 100px; opacity: 0.08; }
-  .hero-label { font-size: 11px; font-weight: 600; letter-spacing: 1.5px; color: rgba(255,255,255,0.7); text-transform: uppercase; margin-bottom: 6px; font-family: 'DM Sans',sans-serif; }
-  .hero-title { font-size: 26px; font-weight: 700; color: white; line-height: 1.25; margin-bottom: 8px; font-family: 'Hind Siliguri',sans-serif; }
-  .hero-sub { font-size: 13px; color: rgba(255,255,255,0.8); font-family: 'Hind Siliguri',sans-serif; }
-  .hero-stats { display: flex; gap: 16px; margin-top: 20px; }
-  .hero-stat { background: rgba(255,255,255,0.15); border-radius: 10px; padding: 10px 14px; flex: 1; }
-  .hero-stat-num { font-size: 22px; font-weight: 700; color: white; font-family: 'DM Sans',sans-serif; }
-  .hero-stat-label { font-size: 11px; color: rgba(255,255,255,0.75); font-family: 'Hind Siliguri',sans-serif; }
+/* ── SECTION HEADER ── */
+.section-header { display:flex; align-items:center; justify-content:space-between; padding:16px 16px 8px; }
+.section-title { font-size:17px; font-weight:700; font-family:'Hind Siliguri',sans-serif; }
+.see-all { font-size:13px; color:var(--primary); font-weight:600; cursor:pointer; background:none; border:none; font-family:'Hind Siliguri',sans-serif; }
 
-  .quick-actions { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; padding: 16px; }
-  .qa-item { background: var(--white); border-radius: var(--radius-sm); padding: 12px 8px; display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: pointer; box-shadow: var(--shadow); transition: transform 0.15s; border: none; }
-  .qa-item:active { transform: scale(0.96); }
-  .qa-icon { font-size: 24px; line-height: 1; }
-  .qa-label { font-size: 11px; font-weight: 500; color: var(--text-2); text-align: center; font-family: 'Hind Siliguri',sans-serif; }
+/* ── HOME ── */
+.hero { background:linear-gradient(135deg, var(--primary) 0%, #2d9e5f 100%); padding:24px 16px 28px; position:relative; overflow:hidden; }
+.hero::before { content:'🏙️'; position:absolute; right:-10px; bottom:-10px; font-size:100px; opacity:0.08; }
+.hero-label { font-size:11px; font-weight:600; letter-spacing:1.5px; color:rgba(255,255,255,0.7); text-transform:uppercase; margin-bottom:6px; font-family:'DM Sans',sans-serif; }
+.hero-title { font-size:26px; font-weight:700; color:white; line-height:1.25; margin-bottom:8px; font-family:'Hind Siliguri',sans-serif; }
+.hero-sub { font-size:13px; color:rgba(255,255,255,0.8); }
+.hero-stats { display:flex; gap:12px; margin-top:20px; }
+.hero-stat { background:rgba(255,255,255,0.15); border-radius:10px; padding:10px 14px; flex:1; }
+.hero-stat-num { font-size:22px; font-weight:700; color:white; font-family:'DM Sans',sans-serif; }
+.hero-stat-label { font-size:11px; color:rgba(255,255,255,0.75); font-family:'Hind Siliguri',sans-serif; }
+.quick-actions { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; padding:16px; }
+.qa-item { background:var(--white); border-radius:var(--radius-sm); padding:12px 8px; display:flex; flex-direction:column; align-items:center; gap:6px; cursor:pointer; box-shadow:var(--shadow); border:none; transition:transform 0.15s; }
+.qa-item:active { transform:scale(0.96); }
+.qa-icon { font-size:24px; }
+.qa-label { font-size:11px; font-weight:500; color:var(--text-2); text-align:center; font-family:'Hind Siliguri',sans-serif; }
+.alert-banner { margin:0 16px 12px; background:#fff8e1; border-radius:var(--radius-sm); padding:12px 14px; border-left:4px solid var(--accent); display:flex; align-items:flex-start; gap:10px; }
+.alert-text { font-size:13px; font-family:'Hind Siliguri',sans-serif; color:var(--text); line-height:1.5; }
 
-  .news-card-home { margin: 0 16px 12px; padding: 14px; }
-  .news-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; flex-wrap: wrap; }
-  .news-cat { font-size: 11px; font-weight: 600; color: var(--primary); background: var(--primary-light); padding: 2px 8px; border-radius: 20px; font-family: 'DM Sans',sans-serif; }
-  .news-time { font-size: 11px; color: var(--text-3); font-family: 'DM Sans',sans-serif; }
-  .news-title-home { font-size: 15px; font-weight: 600; line-height: 1.4; margin-bottom: 8px; font-family: 'Hind Siliguri',sans-serif; }
-  .news-actions { display: flex; gap: 16px; padding-top: 8px; border-top: 1px solid var(--border); }
-  .news-action { display: flex; align-items: center; gap: 4px; font-size: 13px; color: var(--text-3); cursor: pointer; background: none; border: none; font-family: 'Hind Siliguri',sans-serif; }
+/* ── NEWS ── */
+.post-btn { margin:12px 16px; background:var(--white); border-radius:var(--radius); padding:12px 14px; box-shadow:var(--shadow); display:flex; align-items:center; gap:10px; cursor:pointer; border:none; width:calc(100% - 32px); }
+.post-avatar { width:36px; height:36px; background:var(--primary-light); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:16px; flex-shrink:0; }
+.post-placeholder { color:var(--text-3); font-size:14px; font-family:'Hind Siliguri',sans-serif; }
+.news-full-card { margin:0 16px 12px; padding:14px; }
+.news-header { display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:10px; }
+.news-author { display:flex; align-items:center; gap:10px; }
+.author-avatar { width:38px; height:38px; border-radius:50%; background:var(--primary-light); display:flex; align-items:center; justify-content:center; font-size:18px; overflow:hidden; flex-shrink:0; }
+.author-name { font-size:14px; font-weight:600; font-family:'DM Sans',sans-serif; }
+.author-time { font-size:11px; color:var(--text-3); font-family:'DM Sans',sans-serif; }
+.news-title { font-size:15px; font-weight:700; padding:0 0 6px; font-family:'Hind Siliguri',sans-serif; line-height:1.4; }
+.news-body { font-size:14px; line-height:1.6; margin-bottom:10px; font-family:'Hind Siliguri',sans-serif; color:var(--text-2); }
+.news-actions { display:flex; gap:4px; padding-top:8px; border-top:1px solid var(--border); }
+.news-action { flex:1; display:flex; align-items:center; justify-content:center; gap:4px; font-size:12px; color:var(--text-3); cursor:pointer; background:none; border:none; font-family:'Hind Siliguri',sans-serif; padding:6px 4px; border-radius:8px; transition:background 0.15s; }
+.news-action:hover { background:var(--bg); }
+.news-action.liked { color:var(--primary); font-weight:700; }
 
-  /* NEWS FEED */
-  .post-btn { margin: 12px 16px; background: var(--white); border-radius: var(--radius); padding: 12px 14px; box-shadow: var(--shadow); display: flex; align-items: center; gap: 10px; cursor: pointer; border: none; width: calc(100% - 32px); }
-  .post-avatar { width: 36px; height: 36px; background: var(--primary-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
-  .post-placeholder { color: var(--text-3); font-size: 14px; font-family: 'Hind Siliguri',sans-serif; }
-  .news-full-card { margin: 0 16px 12px; padding: 14px; }
-  .news-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 10px; }
-  .news-author { display: flex; align-items: center; gap: 10px; }
-  .author-avatar { width: 38px; height: 38px; border-radius: 50%; background: var(--primary-light); display: flex; align-items: center; justify-content: center; font-size: 18px; overflow: hidden; }
-  .author-name { font-size: 14px; font-weight: 600; font-family: 'DM Sans',sans-serif; }
-  .author-time { font-size: 11px; color: var(--text-3); font-family: 'DM Sans',sans-serif; }
-  .news-body { font-size: 14px; line-height: 1.6; margin-bottom: 10px; font-family: 'Hind Siliguri',sans-serif; }
+/* ── COMMENTS ── */
+.comment-section { border-top:1px solid var(--border); padding:10px 0 0; margin-top:4px; }
+.comment-item { padding:6px 0; border-bottom:1px solid var(--border); }
+.comment-author { font-size:12px; font-weight:600; color:var(--text-2); font-family:'DM Sans',sans-serif; }
+.comment-time { font-size:11px; color:var(--text-3); font-weight:400; margin-left:6px; }
+.comment-body { font-size:13px; color:var(--text); margin-top:2px; font-family:'Hind Siliguri',sans-serif; line-height:1.5; }
+.comment-input-row { display:flex; gap:8px; margin-top:10px; }
 
-  /* COMPLAINT */
-  .complaint-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; padding: 14px 16px; }
-  .cstat { background: var(--white); border-radius: var(--radius-sm); padding: 12px; text-align: center; box-shadow: var(--shadow); }
-  .cstat-num { font-size: 24px; font-weight: 700; font-family: 'DM Sans',sans-serif; }
-  .cstat-label { font-size: 11px; color: var(--text-3); font-family: 'Hind Siliguri',sans-serif; }
-  .cstat.pending .cstat-num { color: #856404; }
-  .cstat.progress .cstat-num { color: #004085; }
-  .cstat.solved .cstat-num { color: var(--primary); }
-  .complaint-card { margin: 0 16px 12px; padding: 14px; }
-  .complaint-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
-  .complaint-cat { display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; font-family: 'DM Sans',sans-serif; color: var(--text-2); }
-  .complaint-title { font-size: 15px; font-weight: 600; margin-bottom: 6px; font-family: 'Hind Siliguri',sans-serif; }
-  .complaint-body { font-size: 13px; color: var(--text-2); line-height: 1.5; margin-bottom: 10px; font-family: 'Hind Siliguri',sans-serif; }
-  .complaint-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 8px; border-top: 1px solid var(--border); }
-  .complaint-meta { font-size: 11px; color: var(--text-3); font-family: 'DM Sans',sans-serif; }
-  .upvote-btn { display: flex; align-items: center; gap: 4px; background: var(--bg); border: none; border-radius: 20px; padding: 4px 12px; font-size: 12px; font-weight: 600; cursor: pointer; color: var(--text-2); font-family: 'DM Sans',sans-serif; }
+/* ── COMPLAINT ── */
+.complaint-stats { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; padding:14px 16px; }
+.cstat { background:var(--white); border-radius:var(--radius-sm); padding:12px; text-align:center; box-shadow:var(--shadow); }
+.cstat-num { font-size:24px; font-weight:700; font-family:'DM Sans',sans-serif; }
+.cstat-label { font-size:11px; color:var(--text-3); font-family:'Hind Siliguri',sans-serif; }
+.cstat.pending .cstat-num { color:#856404; }
+.cstat.progress .cstat-num { color:#004085; }
+.cstat.solved .cstat-num { color:var(--primary); }
+.complaint-card { margin:0 16px 12px; padding:14px; }
+.complaint-header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px; }
+.complaint-cat { font-size:13px; font-weight:600; color:var(--text-2); font-family:'DM Sans',sans-serif; }
+.complaint-title { font-size:15px; font-weight:600; margin-bottom:6px; font-family:'Hind Siliguri',sans-serif; }
+.complaint-body { font-size:13px; color:var(--text-2); line-height:1.5; margin-bottom:10px; font-family:'Hind Siliguri',sans-serif; }
+.complaint-footer { display:flex; align-items:center; justify-content:space-between; padding-top:8px; border-top:1px solid var(--border); }
+.complaint-meta { font-size:11px; color:var(--text-3); font-family:'DM Sans',sans-serif; }
+.upvote-btn { display:flex; align-items:center; gap:4px; background:var(--bg); border:none; border-radius:20px; padding:4px 12px; font-size:12px; font-weight:600; cursor:pointer; color:var(--text-2); font-family:'DM Sans',sans-serif; transition:all 0.15s; }
+.upvote-btn.voted { color:var(--primary); background:var(--primary-light); }
+.fab { position:fixed; bottom:90px; right:20px; width:52px; height:52px; background:var(--primary); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:22px; color:white; cursor:pointer; box-shadow:0 4px 16px rgba(26,107,60,0.4); border:none; z-index:50; transition:transform 0.15s; }
+.fab:active { transform:scale(0.93); }
 
-  /* GOVT */
-  .budget-hero { background: linear-gradient(135deg, #1a3a6b 0%, #2d5fa8 100%); padding: 20px 16px 24px; }
-  .budget-label { font-size: 11px; font-weight: 600; letter-spacing: 1.5px; color: rgba(255,255,255,0.6); text-transform: uppercase; margin-bottom: 4px; font-family: 'DM Sans',sans-serif; }
-  .budget-amount { font-size: 32px; font-weight: 700; color: white; font-family: 'DM Sans',sans-serif; margin-bottom: 4px; }
-  .budget-year { font-size: 13px; color: rgba(255,255,255,0.7); font-family: 'DM Sans',sans-serif; }
-  .budget-bars { margin-top: 16px; display: flex; flex-direction: column; gap: 8px; }
-  .budget-bar-item { display: flex; flex-direction: column; gap: 4px; }
-  .budget-bar-label { display: flex; justify-content: space-between; }
-  .budget-bar-name { font-size: 12px; color: rgba(255,255,255,0.8); font-family: 'Hind Siliguri',sans-serif; }
-  .budget-bar-pct { font-size: 12px; color: white; font-weight: 600; font-family: 'DM Sans',sans-serif; }
-  .bbar-track { height: 6px; background: rgba(255,255,255,0.2); border-radius: 3px; }
-  .bbar-fill { height: 6px; background: white; border-radius: 3px; }
-  .project-card { margin: 0 16px 12px; padding: 14px; }
-  .project-header { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 10px; }
-  .project-icon { width: 44px; height: 44px; border-radius: 10px; background: var(--primary-light); display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
-  .project-title { font-size: 15px; font-weight: 600; margin-bottom: 3px; font-family: 'Hind Siliguri',sans-serif; }
-  .project-budget { font-size: 12px; color: var(--primary); font-weight: 600; font-family: 'DM Sans',sans-serif; }
-  .progress-bar { height: 6px; background: var(--border); border-radius: 3px; margin-bottom: 4px; }
-  .progress-fill { height: 6px; border-radius: 3px; background: var(--primary); }
-  .progress-label { display: flex; justify-content: space-between; font-size: 11px; color: var(--text-3); font-family: 'DM Sans',sans-serif; }
-  .project-footer { margin-top: 10px; padding-top: 8px; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
-  .source-link { font-size: 11px; color: var(--primary); font-weight: 500; cursor: pointer; font-family: 'DM Sans',sans-serif; }
+/* ── GOVT ── */
+.budget-hero { background:linear-gradient(135deg, #1a3a6b 0%, #2d5fa8 100%); padding:20px 16px 24px; }
+.budget-label { font-size:11px; font-weight:600; letter-spacing:1.5px; color:rgba(255,255,255,0.6); text-transform:uppercase; margin-bottom:4px; font-family:'DM Sans',sans-serif; }
+.budget-amount { font-size:32px; font-weight:700; color:white; font-family:'DM Sans',sans-serif; margin-bottom:4px; }
+.budget-year { font-size:13px; color:rgba(255,255,255,0.7); font-family:'DM Sans',sans-serif; }
+.budget-bars { margin-top:16px; display:flex; flex-direction:column; gap:8px; }
+.bbar-row { display:flex; flex-direction:column; gap:4px; }
+.bbar-label { display:flex; justify-content:space-between; }
+.bbar-name { font-size:12px; color:rgba(255,255,255,0.8); font-family:'Hind Siliguri',sans-serif; }
+.bbar-pct { font-size:12px; color:white; font-weight:600; font-family:'DM Sans',sans-serif; }
+.bbar-track { height:6px; background:rgba(255,255,255,0.2); border-radius:3px; }
+.bbar-fill { height:6px; background:white; border-radius:3px; }
+.project-card { margin:0 16px 12px; padding:14px; }
+.project-header { display:flex; gap:12px; align-items:flex-start; margin-bottom:10px; }
+.project-icon { width:44px; height:44px; border-radius:10px; background:var(--primary-light); display:flex; align-items:center; justify-content:center; font-size:22px; flex-shrink:0; }
+.project-title { font-size:15px; font-weight:600; margin-bottom:3px; font-family:'Hind Siliguri',sans-serif; }
+.project-budget { font-size:12px; color:var(--primary); font-weight:600; font-family:'DM Sans',sans-serif; }
+.progress-bar { height:6px; background:var(--border); border-radius:3px; margin-bottom:4px; }
+.progress-fill { height:6px; border-radius:3px; background:var(--primary); }
+.progress-label { display:flex; justify-content:space-between; font-size:11px; color:var(--text-3); font-family:'DM Sans',sans-serif; }
+.project-footer { margin-top:10px; padding-top:8px; border-top:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; }
 
-  /* FAB */
-  .fab { position: fixed; bottom: 90px; right: 20px; width: 52px; height: 52px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px; color: white; cursor: pointer; box-shadow: 0 4px 16px rgba(26,107,60,0.4); border: none; z-index: 50; transition: transform 0.15s; }
-  .fab:active { transform: scale(0.93); }
+/* ── MODAL ── */
+.modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.45); z-index:200; align-items:flex-end; justify-content:center; }
+.modal-overlay.open { display:flex; }
+.modal { background:var(--white); border-radius:20px 20px 0 0; width:100%; max-height:90vh; overflow-y:auto; padding:20px 16px 32px; animation:slideUp 0.25s ease; }
+@keyframes slideUp { from { transform:translateY(100px); opacity:0; } to { transform:translateY(0); opacity:1; } }
+.modal-handle { width:36px; height:4px; background:var(--border); border-radius:2px; margin:0 auto 16px; }
+.modal-title { font-size:18px; font-weight:700; margin-bottom:16px; font-family:'Hind Siliguri',sans-serif; }
+.form-group { margin-bottom:14px; }
+.form-label { font-size:13px; font-weight:600; color:var(--text-2); margin-bottom:6px; display:block; font-family:'Hind Siliguri',sans-serif; }
+.form-input, .form-select, .form-textarea { width:100%; padding:11px 14px; background:var(--bg); border:1px solid var(--border); border-radius:10px; font-size:14px; color:var(--text); font-family:'Hind Siliguri',sans-serif; outline:none; transition:border-color 0.15s; }
+.form-input:focus, .form-select:focus, .form-textarea:focus { border-color:var(--primary); }
+.form-textarea { resize:none; min-height:90px; }
+.cat-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:8px; }
+.cat-option { padding:10px; background:var(--bg); border:2px solid var(--border); border-radius:10px; text-align:center; cursor:pointer; font-size:13px; font-family:'Hind Siliguri',sans-serif; transition:all 0.15s; }
+.cat-option.selected { border-color:var(--primary); background:var(--primary-light); color:var(--primary); font-weight:600; }
+.anon-row { display:flex; align-items:center; justify-content:space-between; padding:12px 14px; background:var(--bg); border-radius:10px; margin-bottom:14px; }
+.anon-label { font-size:14px; font-family:'Hind Siliguri',sans-serif; }
+.toggle { width:44px; height:26px; background:var(--border); border-radius:13px; position:relative; cursor:pointer; transition:background 0.2s; flex-shrink:0; }
+.toggle.on { background:var(--primary); }
+.toggle::after { content:''; position:absolute; width:20px; height:20px; background:white; border-radius:50%; top:3px; left:3px; transition:left 0.2s; box-shadow:0 1px 4px rgba(0,0,0,0.2); }
+.toggle.on::after { left:21px; }
+.btn-primary { width:100%; padding:14px; background:var(--primary); color:white; border:none; border-radius:12px; font-size:15px; font-weight:600; cursor:pointer; font-family:'Hind Siliguri',sans-serif; transition:background 0.15s; display:flex; align-items:center; justify-content:center; gap:8px; }
+.btn-primary:disabled { background:var(--text-3); cursor:not-allowed; }
+.disclaimer { font-size:11px; color:var(--text-3); text-align:center; margin-top:12px; font-family:'DM Sans',sans-serif; line-height:1.5; }
 
-  /* MODAL */
-  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 200; align-items: flex-end; justify-content: center; }
-  .modal-overlay.open { display: flex; }
-  .modal { background: var(--white); border-radius: 20px 20px 0 0; width: 100%; max-height: 90vh; overflow-y: auto; padding: 20px 16px 32px; animation: slideUp 0.25s ease; }
-  @keyframes slideUp { from { transform: translateY(100px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-  .modal-handle { width: 36px; height: 4px; background: var(--border); border-radius: 2px; margin: 0 auto 16px; }
-  .modal-title { font-size: 18px; font-weight: 700; margin-bottom: 16px; font-family: 'Hind Siliguri',sans-serif; }
-  .form-group { margin-bottom: 14px; }
-  .form-label { font-size: 13px; font-weight: 600; color: var(--text-2); margin-bottom: 6px; display: block; font-family: 'Hind Siliguri',sans-serif; }
-  .form-input, .form-select, .form-textarea { width: 100%; padding: 11px 14px; background: var(--bg); border: 1px solid var(--border); border-radius: 10px; font-size: 14px; color: var(--text); font-family: 'Hind Siliguri',sans-serif; outline: none; transition: border-color 0.15s; }
-  .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--primary); }
-  .form-textarea { resize: none; min-height: 90px; }
-  .cat-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 8px; }
-  .cat-option { padding: 10px; background: var(--bg); border: 2px solid var(--border); border-radius: 10px; text-align: center; cursor: pointer; font-size: 13px; font-family: 'Hind Siliguri',sans-serif; transition: all 0.15s; }
-  .cat-option.selected { border-color: var(--primary); background: var(--primary-light); color: var(--primary); font-weight: 600; }
-  .anon-row { display: flex; align-items: center; justify-content: space-between; padding: 12px 14px; background: var(--bg); border-radius: 10px; margin-bottom: 14px; }
-  .anon-label { font-size: 14px; font-family: 'Hind Siliguri',sans-serif; }
-  .toggle { width: 44px; height: 26px; background: var(--border); border-radius: 13px; position: relative; cursor: pointer; transition: background 0.2s; }
-  .toggle.on { background: var(--primary); }
-  .toggle::after { content: ''; position: absolute; width: 20px; height: 20px; background: white; border-radius: 50%; top: 3px; left: 3px; transition: left 0.2s; box-shadow: 0 1px 4px rgba(0,0,0,0.2); }
-  .toggle.on::after { left: 21px; }
-  .btn-primary { width: 100%; padding: 14px; background: var(--primary); color: white; border: none; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; font-family: 'Hind Siliguri',sans-serif; transition: background 0.15s; }
-  .btn-primary:disabled { background: var(--text-3); cursor: not-allowed; }
-  .disclaimer { font-size: 11px; color: var(--text-3); text-align: center; margin-top: 12px; font-family: 'DM Sans',sans-serif; line-height: 1.5; }
-
-  /* TOAST */
-  .toast { position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%) translateY(20px); background: #1c1c1e; color: white; padding: 10px 20px; border-radius: 20px; font-size: 13px; font-family: 'Hind Siliguri',sans-serif; opacity: 0; transition: all 0.3s; pointer-events: none; z-index: 300; white-space: nowrap; }
-  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-
-  .alert-banner { margin: 0 16px 12px; background: #fff8e1; border-radius: var(--radius-sm); padding: 12px 14px; border-left: 4px solid var(--accent); display: flex; align-items: flex-start; gap: 10px; }
-  .alert-text { font-size: 13px; font-family: 'Hind Siliguri',sans-serif; color: var(--text); line-height: 1.5; }
+/* ── TOAST ── */
+.toast { position:fixed; bottom:90px; left:50%; transform:translateX(-50%) translateY(20px); background:#1c1c1e; color:white; padding:10px 20px; border-radius:20px; font-size:13px; font-family:'Hind Siliguri',sans-serif; opacity:0; transition:all 0.3s; pointer-events:none; z-index:300; white-space:nowrap; }
+.toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
 </style>
 </head>
 <body>
 
 <!-- TOPBAR -->
 <div class="topbar">
-  <a class="logo" onclick="goPage('home')">
+  <div class="logo" onclick="goPage('home')">
     <div class="logo-icon">ক</div>
     কেরানীগঞ্জ.com
-  </a>
+  </div>
   <div class="topbar-actions">
-    <button class="login-btn" id="login-btn" onclick="googleLogin()">
-      <img src="https://www.google.com/favicon.ico" width="14" height="14"> Google লগইন
+    <button class="login-btn" id="login-btn" onclick="openLoginModal()">
+      <img src="https://www.google.com/favicon.ico" width="14" height="14"> লগইন
     </button>
     <div class="user-info" id="user-info">
       <img id="user-avatar" src="" alt="user">
-      <button class="logout-btn" onclick="logout()">লগআউট</button>
+      <button class="logout-btn" onclick="doLogout()">লগআউট</button>
     </div>
   </div>
 </div>
@@ -208,118 +211,66 @@
     <div class="hero-title">আপনার এলাকার খবর,<br>আপনার হাতে</div>
     <div class="hero-sub">স্বচ্ছতা ও জবাবদিহিতার প্ল্যাটফর্ম</div>
     <div class="hero-stats">
-      <div class="hero-stat">
-        <div class="hero-stat-num">—</div>
-        <div class="hero-stat-label">অভিযোগ</div>
-      </div>
-      <div class="hero-stat">
-        <div class="hero-stat-num">14</div>
-        <div class="hero-stat-label">প্রকল্প চলমান</div>
-      </div>
-      <div class="hero-stat">
-        <div class="hero-stat-num">—</div>
-        <div class="hero-stat-label">ব্যবহারকারী</div>
-      </div>
+      <div class="hero-stat"><div class="hero-stat-num" id="home-stat-complaints">—</div><div class="hero-stat-label">অভিযোগ</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">14</div><div class="hero-stat-label">প্রকল্প</div></div>
+      <div class="hero-stat"><div class="hero-stat-num" id="home-stat-news">—</div><div class="hero-stat-label">সংবাদ</div></div>
     </div>
   </div>
-
   <div class="quick-actions">
-    <button class="qa-item" onclick="goPage('news')">
-      <span class="qa-icon">📰</span><span class="qa-label">সংবাদ</span>
-    </button>
-    <button class="qa-item" onclick="goPage('complaint')">
-      <span class="qa-icon">🚨</span><span class="qa-label">অভিযোগ</span>
-    </button>
-    <button class="qa-item" onclick="goPage('govt')">
-      <span class="qa-icon">🏛️</span><span class="qa-label">প্রকল্প</span>
-    </button>
-    <button class="qa-item" onclick="showToast('শীঘ্রই আসছে!')">
-      <span class="qa-icon">📍</span><span class="qa-label">ডিরেক্টরি</span>
-    </button>
+    <button class="qa-item" onclick="goPage('news')"><span class="qa-icon">📰</span><span class="qa-label">সংবাদ</span></button>
+    <button class="qa-item" onclick="goPage('complaint')"><span class="qa-icon">🚨</span><span class="qa-label">অভিযোগ</span></button>
+    <button class="qa-item" onclick="goPage('govt')"><span class="qa-icon">🏛️</span><span class="qa-label">প্রকল্প</span></button>
+    <button class="qa-item" onclick="showToast('শীঘ্রই আসছে!')"><span class="qa-icon">📍</span><span class="qa-label">ডিরেক্টরি</span></button>
   </div>
-
   <div class="alert-banner">
-    <div style="font-size:18px;margin-top:1px">⚠️</div>
-    <div class="alert-text"><strong>নোটিশ:</strong> এটি একটি নাগরিক তথ্য প্ল্যাটফর্ম। এটি কোনো সরকারি উৎস নয়।</div>
+    <div style="font-size:18px">⚠️</div>
+    <div class="alert-text"><strong>দাবিত্যাগ:</strong> এটি কোনো সরকারি প্ল্যাটফর্ম নয়। তথ্য যাচাই করুন।</div>
   </div>
-
   <div class="section-header">
     <span class="section-title">সর্বশেষ খবর</span>
     <button class="see-all" onclick="goPage('news')">সব দেখুন →</button>
   </div>
-  <div id="home-news-preview">
-    <div class="card news-card-home" id="home-news-card">
-      <div class="news-meta">
-        <span class="news-cat">আপডেট</span>
-        <span class="news-time">এইমাত্র</span>
-      </div>
-      <div class="news-title-home">সংবাদ ফিড লোড হচ্ছে...</div>
-      <div class="news-actions">
-        <button class="news-action" onclick="goPage('news')">📰 সব খবর দেখুন</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="section-header" style="margin-top:4px">
+  <div id="home-news-list"></div>
+  <div class="section-header">
     <span class="section-title">সাম্প্রতিক অভিযোগ</span>
     <button class="see-all" onclick="goPage('complaint')">সব দেখুন →</button>
   </div>
-  <div class="card" style="margin: 0 16px 16px; padding: 14px; display:flex; gap:12px; align-items:center; cursor:pointer" onclick="goPage('complaint')">
-    <div style="font-size:24px">🚨</div>
-    <div style="flex:1">
-      <div style="font-size:14px; font-weight:600; font-family:'Hind Siliguri',sans-serif; margin-bottom:4px">অভিযোগ দেখুন ও জমা দিন</div>
-      <div style="font-size:12px; color:var(--text-3); font-family:'DM Sans',sans-serif">এলাকার সমস্যা রিপোর্ট করুন</div>
-    </div>
-    <div style="color:var(--text-3)">→</div>
-  </div>
+  <div id="home-complaint-list"></div>
 </div>
 
 <!-- PAGE: NEWS -->
 <div id="page-news" class="page">
   <div class="chips">
-    <div class="chip active">সব</div>
-    <div class="chip">উন্নয়ন</div>
-    <div class="chip">স্বাস্থ্য</div>
-    <div class="chip">শিক্ষা</div>
-    <div class="chip">দুর্নীতি</div>
-    <div class="chip">আইন-শৃঙ্খলা</div>
+    <div class="chip active" onclick="filterNews('সব', this)">সব</div>
+    <div class="chip" onclick="filterNews('উন্নয়ন', this)">উন্নয়ন</div>
+    <div class="chip" onclick="filterNews('স্বাস্থ্য', this)">স্বাস্থ্য</div>
+    <div class="chip" onclick="filterNews('শিক্ষা', this)">শিক্ষা</div>
+    <div class="chip" onclick="filterNews('দুর্নীতি', this)">দুর্নীতি</div>
+    <div class="chip" onclick="filterNews('আইন-শৃঙ্খলা', this)">আইন-শৃঙ্খলা</div>
   </div>
   <button class="post-btn" onclick="openPostModal()">
     <div class="post-avatar">✍️</div>
     <div class="post-placeholder">এলাকার কোনো খবর জানান…</div>
   </button>
-  <div id="news-container">
-    <div style="text-align:center;padding:40px;color:var(--text-3)">লোড হচ্ছে...</div>
-  </div>
+  <div id="news-container"><div style="text-align:center;padding:40px;color:var(--text-3)">লোড হচ্ছে...</div></div>
 </div>
 
 <!-- PAGE: COMPLAINT -->
 <div id="page-complaint" class="page">
   <div class="complaint-stats">
-    <div class="cstat pending">
-      <div class="cstat-num" id="stat-pending">0</div>
-      <div class="cstat-label">অপেক্ষমাণ</div>
-    </div>
-    <div class="cstat progress">
-      <div class="cstat-num" id="stat-progress">0</div>
-      <div class="cstat-label">চলমান</div>
-    </div>
-    <div class="cstat solved">
-      <div class="cstat-num" id="stat-solved">0</div>
-      <div class="cstat-label">সমাধান</div>
-    </div>
+    <div class="cstat pending"><div class="cstat-num" id="stat-pending">0</div><div class="cstat-label">অপেক্ষমাণ</div></div>
+    <div class="cstat progress"><div class="cstat-num" id="stat-progress">0</div><div class="cstat-label">চলমান</div></div>
+    <div class="cstat solved"><div class="cstat-num" id="stat-solved">0</div><div class="cstat-label">সমাধান</div></div>
   </div>
   <div class="chips">
-    <div class="chip active">সব</div>
-    <div class="chip">🛣️ রাস্তা</div>
-    <div class="chip">💧 পানি</div>
-    <div class="chip">⚡ বিদ্যুৎ</div>
-    <div class="chip">🚫 দুর্নীতি</div>
-    <div class="chip">🗑️ বর্জ্য</div>
+    <div class="chip active" onclick="filterComplaints('সব', this)">সব</div>
+    <div class="chip" onclick="filterComplaints('রাস্তা', this)">🛣️ রাস্তা</div>
+    <div class="chip" onclick="filterComplaints('পানি', this)">💧 পানি</div>
+    <div class="chip" onclick="filterComplaints('বিদ্যুৎ', this)">⚡ বিদ্যুৎ</div>
+    <div class="chip" onclick="filterComplaints('দুর্নীতি', this)">🚫 দুর্নীতি</div>
+    <div class="chip" onclick="filterComplaints('বর্জ্য', this)">🗑️ বর্জ্য</div>
   </div>
-  <div id="complaint-container">
-    <div style="text-align:center;padding:40px;color:var(--text-3)">লোড হচ্ছে...</div>
-  </div>
+  <div id="complaint-container"><div style="text-align:center;padding:40px;color:var(--text-3)">লোড হচ্ছে...</div></div>
   <button class="fab" onclick="openComplaintModal()">+</button>
 </div>
 
@@ -330,114 +281,68 @@
     <div class="budget-amount">৳ ৪৮.৬ কোটি</div>
     <div class="budget-year">কেরানীগঞ্জ উপজেলা পরিষদ</div>
     <div class="budget-bars">
-      <div class="budget-bar-item">
-        <div class="budget-bar-label"><span class="budget-bar-name">🛣️ অবকাঠামো ও রাস্তা</span><span class="budget-bar-pct">38%</span></div>
-        <div class="bbar-track"><div class="bbar-fill" style="width:38%"></div></div>
-      </div>
-      <div class="budget-bar-item">
-        <div class="budget-bar-label"><span class="budget-bar-name">🏥 স্বাস্থ্য</span><span class="budget-bar-pct">22%</span></div>
-        <div class="bbar-track"><div class="bbar-fill" style="width:22%"></div></div>
-      </div>
-      <div class="budget-bar-item">
-        <div class="budget-bar-label"><span class="budget-bar-name">🎓 শিক্ষা</span><span class="budget-bar-pct">18%</span></div>
-        <div class="bbar-track"><div class="bbar-fill" style="width:18%"></div></div>
-      </div>
-      <div class="budget-bar-item">
-        <div class="budget-bar-label"><span class="budget-bar-name">💧 পানি ও পয়ঃনিষ্কাশন</span><span class="budget-bar-pct">14%</span></div>
-        <div class="bbar-track"><div class="bbar-fill" style="width:14%"></div></div>
-      </div>
+      <div class="bbar-row"><div class="bbar-label"><span class="bbar-name">🛣️ অবকাঠামো ও রাস্তা</span><span class="bbar-pct">38%</span></div><div class="bbar-track"><div class="bbar-fill" style="width:38%"></div></div></div>
+      <div class="bbar-row"><div class="bbar-label"><span class="bbar-name">🏥 স্বাস্থ্য</span><span class="bbar-pct">22%</span></div><div class="bbar-track"><div class="bbar-fill" style="width:22%"></div></div></div>
+      <div class="bbar-row"><div class="bbar-label"><span class="bbar-name">🎓 শিক্ষা</span><span class="bbar-pct">18%</span></div><div class="bbar-track"><div class="bbar-fill" style="width:18%"></div></div></div>
+      <div class="bbar-row"><div class="bbar-label"><span class="bbar-name">💧 পানি ও পয়ঃনিষ্কাশন</span><span class="bbar-pct">14%</span></div><div class="bbar-track"><div class="bbar-fill" style="width:14%"></div></div></div>
+      <div class="bbar-row"><div class="bbar-label"><span class="bbar-name">📋 অন্যান্য</span><span class="bbar-pct">8%</span></div><div class="bbar-track"><div class="bbar-fill" style="width:8%"></div></div></div>
     </div>
   </div>
-
-  <div class="section-header">
-    <span class="section-title">চলমান প্রকল্প</span>
-  </div>
-
+  <div class="section-header"><span class="section-title">চলমান প্রকল্প</span></div>
   <div class="card project-card">
-    <div class="project-header">
-      <div class="project-icon">🌉</div>
-      <div>
-        <div class="project-title">বুড়িগঙ্গা সংযোগ সেতু সম্প্রসারণ</div>
-        <div class="project-budget">বরাদ্দ: ৳ ১২.৪ কোটি</div>
-      </div>
-    </div>
+    <div class="project-header"><div class="project-icon">🌉</div><div><div class="project-title">বুড়িগঙ্গা সংযোগ সেতু সম্প্রসারণ</div><div class="project-budget">বরাদ্দ: ৳ ১২.৪ কোটি</div></div></div>
     <div class="progress-bar"><div class="progress-fill" style="width:35%"></div></div>
     <div class="progress-label"><span>৩৫% সম্পন্ন</span><span>শেষ: ডিসেম্বর ২০২৫</span></div>
-    <div class="project-footer">
-      <span class="badge badge-progress">নির্মাণাধীন</span>
-      <span class="source-link" onclick="showToast('সূত্র লিংক শীঘ্রই যোগ হবে')">📎 সূত্র দেখুন</span>
-    </div>
+    <div class="project-footer"><span class="badge badge-progress">নির্মাণাধীন</span><span style="font-size:11px;color:var(--primary);cursor:pointer" onclick="showToast('সূত্র শীঘ্রই যোগ হবে')">📎 সূত্র দেখুন</span></div>
   </div>
-
   <div class="card project-card">
-    <div class="project-header">
-      <div class="project-icon">🏫</div>
-      <div>
-        <div class="project-title">৫টি সরকারি বিদ্যালয় সংস্কার</div>
-        <div class="project-budget">বরাদ্দ: ৳ ৩.৮ কোটি</div>
-      </div>
-    </div>
+    <div class="project-header"><div class="project-icon">🏫</div><div><div class="project-title">৫টি সরকারি বিদ্যালয় সংস্কার</div><div class="project-budget">বরাদ্দ: ৳ ৩.৮ কোটি</div></div></div>
     <div class="progress-bar"><div class="progress-fill" style="width:72%"></div></div>
     <div class="progress-label"><span>৭২% সম্পন্ন</span><span>শেষ: জুন ২০২৫</span></div>
-    <div class="project-footer">
-      <span class="badge badge-progress">চলমান</span>
-      <span class="source-link" onclick="showToast('সূত্র লিংক শীঘ্রই যোগ হবে')">📎 সূত্র দেখুন</span>
-    </div>
+    <div class="project-footer"><span class="badge badge-progress">চলমান</span><span style="font-size:11px;color:var(--primary);cursor:pointer" onclick="showToast('সূত্র শীঘ্রই যোগ হবে')">📎 সূত্র দেখুন</span></div>
   </div>
-
-  <div style="margin: 0 16px 16px; padding: 12px; background: #fff8e1; border-radius: 10px;">
-    <div style="font-size:12px; color:#856404; font-family:'Hind Siliguri',sans-serif; line-height:1.5">
-      ⚠️ <strong>দাবিত্যাগ:</strong> এই তথ্য সরকারি নথি থেকে সংগৃহীত। তবুও সর্বদা সরকারি উৎস যাচাই করুন।
-    </div>
+  <div style="margin:0 16px 16px;padding:12px;background:#fff8e1;border-radius:10px">
+    <div style="font-size:12px;color:#856404;font-family:'Hind Siliguri',sans-serif;line-height:1.5">⚠️ এই তথ্য সরকারি নথি থেকে সংগৃহীত। সর্বদা সরকারি উৎস যাচাই করুন।</div>
   </div>
 </div>
 
 <!-- BOTTOM NAV -->
 <nav class="bottomnav">
-  <button class="nav-item active" id="nav-home" onclick="goPage('home')">
-    <span class="nav-icon">🏠</span><span class="nav-label">হোম</span>
-  </button>
-  <button class="nav-item" id="nav-news" onclick="goPage('news')">
-    <span class="nav-icon">📰</span><span class="nav-label">সংবাদ</span>
-  </button>
-  <button class="nav-item" id="nav-complaint" onclick="goPage('complaint')">
-    <span class="nav-icon">🚨</span><span class="nav-label">অভিযোগ</span>
-  </button>
-  <button class="nav-item" id="nav-govt" onclick="goPage('govt')">
-    <span class="nav-icon">🏛️</span><span class="nav-label">প্রকল্প</span>
-  </button>
+  <button class="nav-item active" id="nav-home" onclick="goPage('home')"><span class="nav-icon">🏠</span><span class="nav-label">হোম</span></button>
+  <button class="nav-item" id="nav-news" onclick="goPage('news')"><span class="nav-icon">📰</span><span class="nav-label">সংবাদ</span></button>
+  <button class="nav-item" id="nav-complaint" onclick="goPage('complaint')"><span class="nav-icon">🚨</span><span class="nav-label">অভিযোগ</span></button>
+  <button class="nav-item" id="nav-govt" onclick="goPage('govt')"><span class="nav-icon">🏛️</span><span class="nav-label">প্রকল্প</span></button>
 </nav>
+
+<!-- MODAL: LOGIN -->
+<div class="modal-overlay" id="modal-login" onclick="closeModal('modal-login')">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-handle"></div>
+    <div style="text-align:center;font-size:40px;margin-bottom:12px">🔐</div>
+    <div class="modal-title" style="text-align:center">লগইন করুন</div>
+    <p style="font-size:14px;color:var(--text-2);margin-bottom:20px;font-family:'Hind Siliguri',sans-serif;text-align:center">এই কাজটি করতে লগইন করতে হবে</p>
+    <button class="btn-primary" onclick="doGoogleLogin()">
+      <img src="https://www.google.com/favicon.ico" width="16" height="16"> Google দিয়ে লগইন
+    </button>
+    <div class="disclaimer">লগইন করলে আপনি আমাদের নীতিমালায় সম্মত হচ্ছেন</div>
+  </div>
+</div>
 
 <!-- MODAL: POST -->
 <div class="modal-overlay" id="modal-post" onclick="closeModal('modal-post')">
   <div class="modal" onclick="event.stopPropagation()">
     <div class="modal-handle"></div>
     <div class="modal-title">নতুন পোস্ট করুন</div>
-    <div class="form-group">
-      <label class="form-label">শিরোনাম *</label>
-      <input class="form-input" id="post-title" placeholder="সংক্ষিপ্ত শিরোনাম লিখুন…">
-    </div>
-    <div class="form-group">
-      <label class="form-label">বিবরণ *</label>
-      <textarea class="form-textarea" id="post-body" placeholder="বিস্তারিত লিখুন…"></textarea>
-    </div>
-    <div class="form-group">
-      <label class="form-label">বিভাগ</label>
+    <div class="form-group"><label class="form-label">শিরোনাম *</label><input class="form-input" id="post-title" placeholder="সংক্ষিপ্ত শিরোনাম…"></div>
+    <div class="form-group"><label class="form-label">বিবরণ *</label><textarea class="form-textarea" id="post-body" placeholder="বিস্তারিত লিখুন…"></textarea></div>
+    <div class="form-group"><label class="form-label">বিভাগ</label>
       <select class="form-select" id="post-category">
-        <option>উন্নয়ন</option>
-        <option>স্বাস্থ্য</option>
-        <option>শিক্ষা</option>
-        <option>দুর্নীতি</option>
-        <option>আইন-শৃঙ্খলা</option>
-        <option>সাধারণ</option>
+        <option>উন্নয়ন</option><option>স্বাস্থ্য</option><option>শিক্ষা</option><option>দুর্নীতি</option><option>আইন-শৃঙ্খলা</option><option>সাধারণ</option>
       </select>
     </div>
-    <div class="anon-row">
-      <span class="anon-label">익명ভাবে পোস্ট করুন</span>
-      <div class="toggle" id="anon-post" onclick="this.classList.toggle('on')"></div>
-    </div>
+    <div class="anon-row"><span class="anon-label">익명ভাবে পোস্ট করুন</span><div class="toggle" id="anon-post" onclick="this.classList.toggle('on')"></div></div>
     <button class="btn-primary" id="submit-post-btn" onclick="submitPost()">পোস্ট সাবমিট করুন</button>
-    <div class="disclaimer">Admin অনুমোদনের পর পোস্টটি প্রকাশিত হবে</div>
+    <div class="disclaimer">Admin অনুমোদনের পর প্রকাশিত হবে</div>
   </div>
 </div>
 
@@ -446,8 +351,7 @@
   <div class="modal" onclick="event.stopPropagation()">
     <div class="modal-handle"></div>
     <div class="modal-title">নতুন অভিযোগ জানান</div>
-    <div class="form-group">
-      <label class="form-label">সমস্যার ধরন *</label>
+    <div class="form-group"><label class="form-label">সমস্যার ধরন *</label>
       <div class="cat-grid" id="cat-grid">
         <div class="cat-option selected" data-cat="রাস্তা" onclick="selectCat(this)">🛣️ রাস্তা</div>
         <div class="cat-option" data-cat="পানি" onclick="selectCat(this)">💧 পানি</div>
@@ -457,25 +361,449 @@
         <div class="cat-option" data-cat="শিক্ষা" onclick="selectCat(this)">🏫 শিক্ষা</div>
       </div>
     </div>
-    <div class="form-group">
-      <label class="form-label">শিরোনাম *</label>
-      <input class="form-input" id="complaint-title" placeholder="সমস্যাটি সংক্ষেপে লিখুন…">
-    </div>
-    <div class="form-group">
-      <label class="form-label">বিস্তারিত বিবরণ *</label>
-      <textarea class="form-textarea" id="complaint-body" placeholder="কোথায়, কী সমস্যা, কতদিন ধরে…"></textarea>
-    </div>
-    <div class="anon-row">
-      <span class="anon-label">익명ভাবে জমা দিন</span>
-      <div class="toggle on" id="anon-complaint" onclick="this.classList.toggle('on')"></div>
-    </div>
+    <div class="form-group"><label class="form-label">শিরোনাম *</label><input class="form-input" id="complaint-title" placeholder="সমস্যাটি সংক্ষেপে…"></div>
+    <div class="form-group"><label class="form-label">বিস্তারিত *</label><textarea class="form-textarea" id="complaint-body" placeholder="কোথায়, কী সমস্যা, কতদিন ধরে…"></textarea></div>
+    <div class="anon-row"><span class="anon-label">익명ভাবে জমা দিন</span><div class="toggle on" id="anon-complaint" onclick="this.classList.toggle('on')"></div></div>
     <button class="btn-primary" id="submit-complaint-btn" onclick="submitComplaint()">অভিযোগ জমা দিন</button>
   </div>
 </div>
 
-<!-- TOAST -->
 <div class="toast" id="toast"></div>
 
-<script type="module" src="app.js"></script>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getFirestore, collection, addDoc, getDocs, getDoc, setDoc, updateDoc, doc, query, orderBy, where, serverTimestamp, increment } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBHagEJrvZCyD8XHIqdNzGE39hr7jiDiQw",
+  authDomain: "keraniganj-dbf1b.firebaseapp.com",
+  projectId: "keraniganj-dbf1b",
+  storageBucket: "keraniganj-dbf1b.firebasestorage.app",
+  messagingSenderId: "252291358700",
+  appId: "1:252291358700:web:4a2318ccf1d172152b2ac9"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const provider = new GoogleAuthProvider();
+
+let currentUser = null;
+let currentPage = 'home';
+let allNews = [];
+let allComplaints = [];
+
+// ── AUTH ──
+onAuthStateChanged(auth, user => {
+  currentUser = user;
+  const loginBtn = document.getElementById('login-btn');
+  const userInfo = document.getElementById('user-info');
+  const avatar = document.getElementById('user-avatar');
+  if (user) {
+    if (loginBtn) loginBtn.style.display = 'none';
+    if (userInfo) userInfo.style.display = 'flex';
+    if (avatar && user.photoURL) avatar.src = user.photoURL;
+  } else {
+    if (loginBtn) loginBtn.style.display = 'flex';
+    if (userInfo) userInfo.style.display = 'none';
+  }
+});
+
+window.doGoogleLogin = async () => {
+  try {
+    await signInWithPopup(auth, provider);
+    closeModal('modal-login');
+    showToast('স্বাগতম! লগইন সফল হয়েছে ✅');
+  } catch { showToast('লগইন ব্যর্থ হয়েছে'); }
+};
+
+window.doLogout = async () => {
+  await signOut(auth);
+  showToast('লগআউট সফল হয়েছে');
+};
+
+function requireLogin() {
+  if (!currentUser) {
+    showToast('এই কাজের জন্য লগইন করুন');
+    setTimeout(() => openLoginModal(), 600);
+    return false;
+  }
+  return true;
+}
+
+// ── NAVIGATION ──
+window.goPage = function(name) {
+  currentPage = name;
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('page-' + name)?.classList.add('active');
+  document.getElementById('nav-' + name)?.classList.add('active');
+  window.scrollTo(0, 0);
+  if (name === 'news') loadNews();
+  if (name === 'complaint') loadComplaints();
+  if (name === 'home') loadHome();
+};
+
+// ── HOME ──
+async function loadHome() {
+  try {
+    // News preview (approved only)
+    const nq = query(collection(db, 'news'), where('status', '==', 'approved'), orderBy('createdAt', 'desc'));
+    const nSnap = await getDocs(nq);
+    const homeNewsList = document.getElementById('home-news-list');
+    document.getElementById('home-stat-news').textContent = nSnap.size;
+    if (homeNewsList) {
+      if (nSnap.empty) {
+        homeNewsList.innerHTML = '<div style="text-align:center;padding:20px;color:var(--text-3);font-family:Hind Siliguri,sans-serif;font-size:13px">এখনো কোনো অনুমোদিত সংবাদ নেই</div>';
+      } else {
+        homeNewsList.innerHTML = '';
+        let count = 0;
+        nSnap.forEach(d => {
+          if (count >= 2) return;
+          const data = d.data();
+          homeNewsList.innerHTML += `
+            <div class="card" style="margin:0 16px 10px;padding:14px;cursor:pointer" onclick="goPage('news')">
+              <div style="font-size:11px;color:var(--primary);font-weight:600;font-family:'DM Sans',sans-serif;margin-bottom:4px">${data.category||'সাধারণ'} • ${getTimeAgo(data.createdAt)}</div>
+              <div style="font-size:14px;font-weight:600;font-family:'Hind Siliguri',sans-serif;line-height:1.4">${data.title||data.body?.substring(0,80)}</div>
+            </div>`;
+          count++;
+        });
+      }
+    }
+
+    // Complaint preview
+    const cq = query(collection(db, 'complaints'), orderBy('createdAt', 'desc'));
+    const cSnap = await getDocs(cq);
+    const homeComplaintList = document.getElementById('home-complaint-list');
+    document.getElementById('home-stat-complaints').textContent = cSnap.size;
+    if (homeComplaintList) {
+      if (cSnap.empty) {
+        homeComplaintList.innerHTML = '<div style="text-align:center;padding:20px;color:var(--text-3);font-family:Hind Siliguri,sans-serif;font-size:13px;margin-bottom:16px">এখনো কোনো অভিযোগ নেই</div>';
+      } else {
+        homeComplaintList.innerHTML = '';
+        let count = 0;
+        const statusMap = { pending:['badge-pending','অপেক্ষমাণ'], progress:['badge-progress','চলমান'], solved:['badge-solved','সমাধান'] };
+        cSnap.forEach(d => {
+          if (count >= 2) return;
+          const data = d.data();
+          const [bc, bt] = statusMap[data.status] || ['badge-pending','অপেক্ষমাণ'];
+          const catIcons = {রাস্তা:'🛣️',পানি:'💧',বিদ্যুৎ:'⚡',দুর্নীতি:'🚫',বর্জ্য:'🗑️',শিক্ষা:'🏫'};
+          homeComplaintList.innerHTML += `
+            <div class="card" style="margin:0 16px 10px;padding:12px 14px;display:flex;gap:10px;align-items:flex-start;cursor:pointer" onclick="goPage('complaint')">
+              <div style="font-size:20px">${catIcons[data.category]||'📋'}</div>
+              <div style="flex:1">
+                <div style="font-size:14px;font-weight:600;font-family:'Hind Siliguri',sans-serif;margin-bottom:3px">${data.title}</div>
+                <div style="font-size:11px;color:var(--text-3);font-family:'DM Sans',sans-serif">${getTimeAgo(data.createdAt)} • 👍 ${data.votes||0}</div>
+              </div>
+              <span class="badge ${bc}">${bt}</span>
+            </div>`;
+          count++;
+        });
+        homeComplaintList.innerHTML += '<div style="margin-bottom:16px"></div>';
+      }
+    }
+  } catch(e) { console.error(e); }
+}
+
+// ── NEWS ──
+async function loadNews() {
+  const container = document.getElementById('news-container');
+  if (!container) return;
+  container.innerHTML = '<div style="text-align:center;padding:40px;color:var(--text-3)">লোড হচ্ছে...</div>';
+  try {
+    const q = query(collection(db, 'news'), where('status', '==', 'approved'), orderBy('createdAt', 'desc'));
+    const snap = await getDocs(q);
+    allNews = [];
+    snap.forEach(d => allNews.push({ id: d.id, ...d.data() }));
+    renderNews(allNews);
+  } catch(e) {
+    console.error(e);
+    container.innerHTML = '<div style="text-align:center;padding:30px;color:var(--danger)">ডেটা লোড করতে সমস্যা হয়েছে</div>';
+  }
+}
+
+function renderNews(list) {
+  const container = document.getElementById('news-container');
+  if (!container) return;
+  if (!list.length) {
+    container.innerHTML = '<div style="text-align:center;padding:40px;color:var(--text-3)">এখনো কোনো অনুমোদিত পোস্ট নেই</div>';
+    return;
+  }
+  container.innerHTML = '';
+  list.forEach(d => {
+    const id = d.id;
+    const authorName = d.anonymous ? '익명 নাগরিক' : (d.authorName || 'অজ্ঞাত');
+    const avatarHtml = (!d.anonymous && d.authorPhoto)
+      ? `<img src="${d.authorPhoto}" style="width:38px;height:38px;border-radius:50%;object-fit:cover">`
+      : '👤';
+    container.innerHTML += `
+      <div class="card news-full-card">
+        <div class="news-header">
+          <div class="news-author">
+            <div class="author-avatar">${avatarHtml}</div>
+            <div>
+              <div class="author-name">${authorName}</div>
+              <div class="author-time">${getTimeAgo(d.createdAt)} • ${d.category||'সাধারণ'}</div>
+            </div>
+          </div>
+        </div>
+        ${d.title ? `<div class="news-title">${d.title}</div>` : ''}
+        <div class="news-body">${d.body}</div>
+        <div class="news-actions">
+          <button class="news-action" id="like-${id}" onclick="likePost('${id}', this)">👍 ${d.likes||0}</button>
+          <button class="news-action" onclick="toggleComments('${id}')">💬 ${d.commentCount||0} মন্তব্য</button>
+          <button class="news-action" onclick="sharePost()">↗️ শেয়ার</button>
+        </div>
+        <div id="comments-${id}" style="display:none">
+          <div class="comment-section">
+            <div id="comment-list-${id}"></div>
+            <div class="comment-input-row">
+              <input class="form-input" id="comment-input-${id}" placeholder="মন্তব্য লিখুন..." style="padding:8px 12px;font-size:13px">
+              <button onclick="submitComment('${id}')" style="background:var(--primary);color:white;border:none;border-radius:8px;padding:8px 14px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;font-family:'Hind Siliguri',sans-serif">পাঠান</button>
+            </div>
+          </div>
+        </div>
+      </div>`;
+  });
+}
+
+window.filterNews = function(cat, el) {
+  document.querySelectorAll('#page-news .chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  if (cat === 'সব') renderNews(allNews);
+  else renderNews(allNews.filter(n => n.category === cat));
+};
+
+window.submitPost = async function() {
+  if (!requireLogin()) return;
+  const title = document.getElementById('post-title').value.trim();
+  const body = document.getElementById('post-body').value.trim();
+  const category = document.getElementById('post-category').value;
+  const anonymous = document.getElementById('anon-post').classList.contains('on');
+  if (!title || !body) { showToast('শিরোনাম ও বিবরণ দিন'); return; }
+  const btn = document.getElementById('submit-post-btn');
+  btn.disabled = true; btn.textContent = 'পাঠানো হচ্ছে...';
+  try {
+    await addDoc(collection(db, 'news'), {
+      title, body, category, anonymous,
+      authorName: anonymous ? null : currentUser.displayName,
+      authorPhoto: anonymous ? null : currentUser.photoURL,
+      authorId: currentUser.uid,
+      likes: 0, commentCount: 0,
+      status: 'pending',
+      verified: false,
+      createdAt: serverTimestamp()
+    });
+    closeModal('modal-post');
+    showToast('পোস্ট জমা হয়েছে! Admin অনুমোদনের পর দেখাবে ✅');
+    document.getElementById('post-title').value = '';
+    document.getElementById('post-body').value = '';
+  } catch { showToast('পোস্ট করতে সমস্যা হয়েছে'); }
+  finally { btn.disabled = false; btn.textContent = 'পোস্ট সাবমিট করুন'; }
+};
+
+// একবারই like
+window.likePost = async function(id, btn) {
+  if (!requireLogin()) return;
+  const likeRef = doc(db, 'news', id, 'likes', currentUser.uid);
+  try {
+    const existing = await getDoc(likeRef);
+    if (existing.exists()) { showToast('আপনি ইতিমধ্যে লাইক দিয়েছেন 👍'); return; }
+    await setDoc(likeRef, { at: serverTimestamp() });
+    await updateDoc(doc(db, 'news', id), { likes: increment(1) });
+    const n = parseInt(btn.textContent.replace('👍 ','')) + 1;
+    btn.textContent = `👍 ${n}`;
+    btn.classList.add('liked');
+  } catch { showToast('সমস্যা হয়েছে'); }
+};
+
+window.toggleComments = async function(id) {
+  const section = document.getElementById(`comments-${id}`);
+  if (!section) return;
+  if (section.style.display === 'none') {
+    section.style.display = 'block';
+    await loadCommentList(id);
+  } else {
+    section.style.display = 'none';
+  }
+};
+
+async function loadCommentList(postId) {
+  const listEl = document.getElementById(`comment-list-${postId}`);
+  if (!listEl) return;
+  listEl.innerHTML = '<div style="font-size:12px;color:var(--text-3);padding:4px 0">লোড হচ্ছে...</div>';
+  try {
+    const q = query(collection(db, 'news', postId, 'comments'), orderBy('createdAt', 'asc'));
+    const snap = await getDocs(q);
+    if (snap.empty) { listEl.innerHTML = '<div style="font-size:12px;color:var(--text-3);padding:6px 0">এখনো কোনো মন্তব্য নেই</div>'; return; }
+    listEl.innerHTML = '';
+    snap.forEach(d => {
+      const data = d.data();
+      listEl.innerHTML += `
+        <div class="comment-item">
+          <div><span class="comment-author">${data.authorName||'익명'}</span><span class="comment-time">${getTimeAgo(data.createdAt)}</span></div>
+          <div class="comment-body">${data.body}</div>
+        </div>`;
+    });
+  } catch { listEl.innerHTML = '<div style="font-size:12px;color:var(--danger)">লোড করতে সমস্যা</div>'; }
+}
+
+window.submitComment = async function(postId) {
+  if (!requireLogin()) return;
+  const input = document.getElementById(`comment-input-${postId}`);
+  const body = input?.value.trim();
+  if (!body) { showToast('মন্তব্য লিখুন'); return; }
+  try {
+    await addDoc(collection(db, 'news', postId, 'comments'), {
+      body,
+      authorName: currentUser.displayName || 'অজ্ঞাত',
+      authorId: currentUser.uid,
+      createdAt: serverTimestamp()
+    });
+    await updateDoc(doc(db, 'news', postId), { commentCount: increment(1) });
+    input.value = '';
+    await loadCommentList(postId);
+    showToast('মন্তব্য যোগ হয়েছে ✅');
+  } catch { showToast('মন্তব্য করতে সমস্যা হয়েছে'); }
+};
+
+// ── COMPLAINTS ──
+async function loadComplaints() {
+  const container = document.getElementById('complaint-container');
+  if (!container) return;
+  container.innerHTML = '<div style="text-align:center;padding:40px;color:var(--text-3)">লোড হচ্ছে...</div>';
+  try {
+    const q = query(collection(db, 'complaints'), orderBy('createdAt', 'desc'));
+    const snap = await getDocs(q);
+    allComplaints = [];
+    let pending=0, progress=0, solved=0;
+    snap.forEach(d => {
+      const data = { id: d.id, ...d.data() };
+      allComplaints.push(data);
+      if (data.status === 'pending') pending++;
+      else if (data.status === 'progress') progress++;
+      else if (data.status === 'solved') solved++;
+    });
+    const el = id => document.getElementById(id);
+    if (el('stat-pending')) el('stat-pending').textContent = pending;
+    if (el('stat-progress')) el('stat-progress').textContent = progress;
+    if (el('stat-solved')) el('stat-solved').textContent = solved;
+    renderComplaints(allComplaints);
+  } catch(e) {
+    console.error(e);
+    container.innerHTML = '<div style="text-align:center;padding:30px;color:var(--danger)">ডেটা লোড করতে সমস্যা হয়েছে</div>';
+  }
+}
+
+function renderComplaints(list) {
+  const container = document.getElementById('complaint-container');
+  if (!container) return;
+  if (!list.length) {
+    container.innerHTML = '<div style="text-align:center;padding:40px;color:var(--text-3)">কোনো অভিযোগ নেই</div>';
+    return;
+  }
+  const statusMap = { pending:['badge-pending','অপেক্ষমাণ'], progress:['badge-progress','চলমান'], solved:['badge-solved','সমাধান'] };
+  const catIcons = {রাস্তা:'🛣️',পানি:'💧',বিদ্যুৎ:'⚡',দুর্নীতি:'🚫',বর্জ্য:'🗑️',শিক্ষা:'🏫'};
+  container.innerHTML = '';
+  list.forEach(d => {
+    const [bc, bt] = statusMap[d.status] || ['badge-pending','অপেক্ষমাণ'];
+    container.innerHTML += `
+      <div class="card complaint-card">
+        <div class="complaint-header">
+          <div class="complaint-cat">${catIcons[d.category]||'📋'} ${d.category}</div>
+          <span class="badge ${bc}">${bt}</span>
+        </div>
+        <div class="complaint-title">${d.title}</div>
+        <div class="complaint-body">${d.body}</div>
+        <div class="complaint-footer">
+          <span class="complaint-meta">${d.anonymous ? '익명' : (d.authorName||'অজ্ঞাত')} • ${getTimeAgo(d.createdAt)}</span>
+          <button class="upvote-btn" id="vote-${d.id}" onclick="upvoteComplaint('${d.id}', this)">👍 ${d.votes||0} ভোট</button>
+        </div>
+      </div>`;
+  });
+}
+
+window.filterComplaints = function(cat, el) {
+  document.querySelectorAll('#page-complaint .chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  if (cat === 'সব') renderComplaints(allComplaints);
+  else renderComplaints(allComplaints.filter(c => c.category === cat));
+};
+
+window.submitComplaint = async function() {
+  if (!requireLogin()) return;
+  const title = document.getElementById('complaint-title').value.trim();
+  const body = document.getElementById('complaint-body').value.trim();
+  const category = document.querySelector('#cat-grid .cat-option.selected')?.dataset.cat || 'রাস্তা';
+  const anonymous = document.getElementById('anon-complaint').classList.contains('on');
+  if (!title || !body) { showToast('শিরোনাম ও বিবরণ দিন'); return; }
+  const btn = document.getElementById('submit-complaint-btn');
+  btn.disabled = true; btn.textContent = 'পাঠানো হচ্ছে...';
+  try {
+    await addDoc(collection(db, 'complaints'), {
+      title, body, category, anonymous,
+      authorName: anonymous ? null : currentUser.displayName,
+      authorId: currentUser.uid,
+      status: 'pending',
+      votes: 0,
+      createdAt: serverTimestamp()
+    });
+    closeModal('modal-complaint');
+    showToast('অভিযোগ সফলভাবে জমা হয়েছে ✅');
+    document.getElementById('complaint-title').value = '';
+    document.getElementById('complaint-body').value = '';
+    loadComplaints();
+  } catch { showToast('জমা দিতে সমস্যা হয়েছে'); }
+  finally { btn.disabled = false; btn.textContent = 'অভিযোগ জমা দিন'; }
+};
+
+// একবারই vote
+window.upvoteComplaint = async function(id, btn) {
+  if (!requireLogin()) return;
+  const voteRef = doc(db, 'complaints', id, 'votes', currentUser.uid);
+  try {
+    const existing = await getDoc(voteRef);
+    if (existing.exists()) { showToast('আপনি ইতিমধ্যে ভোট দিয়েছেন'); return; }
+    await setDoc(voteRef, { at: serverTimestamp() });
+    await updateDoc(doc(db, 'complaints', id), { votes: increment(1) });
+    const n = parseInt(btn.textContent.replace('👍 ','').replace(' ভোট','')) + 1;
+    btn.textContent = `👍 ${n} ভোট`;
+    btn.classList.add('voted');
+  } catch { showToast('সমস্যা হয়েছে'); }
+};
+
+// ── UI HELPERS ──
+window.openLoginModal = () => document.getElementById('modal-login').classList.add('open');
+window.openPostModal = () => { if (!requireLogin()) return; document.getElementById('modal-post').classList.add('open'); };
+window.openComplaintModal = () => { if (!requireLogin()) return; document.getElementById('modal-complaint').classList.add('open'); };
+window.closeModal = id => document.getElementById(id)?.classList.remove('open');
+window.selectCat = el => { document.querySelectorAll('#cat-grid .cat-option').forEach(c => c.classList.remove('selected')); el.classList.add('selected'); };
+window.sharePost = () => {
+  if (navigator.share) navigator.share({ title:'কেরানীগঞ্জ.com', url:window.location.href });
+  else { navigator.clipboard?.writeText(window.location.href); showToast('লিংক কপি হয়েছে'); }
+};
+
+function getTimeAgo(ts) {
+  if (!ts) return 'এইমাত্র';
+  const date = ts.toDate ? ts.toDate() : new Date(ts);
+  const diff = Math.floor((new Date() - date) / 1000);
+  if (diff < 60) return 'এইমাত্র';
+  if (diff < 3600) return `${Math.floor(diff/60)} মিনিট আগে`;
+  if (diff < 86400) return `${Math.floor(diff/3600)} ঘণ্টা আগে`;
+  return `${Math.floor(diff/86400)} দিন আগে`;
+}
+
+let tt;
+window.showToast = msg => {
+  const t = document.getElementById('toast');
+  if (!t) return;
+  t.textContent = msg; t.classList.add('show');
+  clearTimeout(tt); tt = setTimeout(() => t.classList.remove('show'), 2500);
+};
+
+// Init
+loadHome();
+</script>
 </body>
 </html>
