@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — কেরানীগঞ্জ.com</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f2f2f7;
+    --white: #ffffff;
+    --primary: #1a6b3c;
+    --primary-light: #e8f5ee;
+    --danger: #e53935;
+    --danger-light: #fdecea;
+    --accent: #e8a317;
+    --accent-light: #fff8e1;
+    --text: #1c1c1e;
+    --text-2: #48484a;
+    --text-3: #8e8e93;
+    --border: #e5e5ea;
+    --shadow: 0 2px 12px rgba(0,0,0,0.07);
+    --radius: 14px;
+    --radius-sm: 8px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Hind Siliguri','DM Sans',sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; -webkit-font-smoothing: antialiased; }
+
+  /* TOPBAR */
+  .topbar { background: var(--white); padding: 0 16px; height: 56px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid var(--border); box-shadow: 0 1px 8px rgba(0,0,0,0.05); }
+  .logo { display: flex; align-items: center; gap: 8px; font-family: 'DM Sans',sans-serif; font-weight: 700; font-size: 17px; color: var(--primary); }
+  .logo-icon { width: 32px; height: 32px; background: var(--primary); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-size: 14px; }
+  .admin-badge { background: #1a3a6b; color: white; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 20px; font-family: 'DM Sans',sans-serif; }
+  .topbar-right { display: flex; align-items: center; gap: 8px; }
+  .user-photo { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; display: none; }
+  .logout-btn { background: var(--bg); border: none; border-radius: 20px; padding: 5px 12px; font-size: 12px; font-weight: 600; color: var(--text-2); cursor: pointer; font-family: 'DM Sans',sans-serif; }
+
+  /* LOGIN SCREEN */
+  .login-screen { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; padding: 24px; }
+  .login-card { background: var(--white); border-radius: 20px; padding: 32px 24px; box-shadow: var(--shadow); text-align: center; width: 100%; max-width: 360px; }
+  .login-icon { font-size: 48px; margin-bottom: 16px; }
+  .login-title { font-size: 22px; font-weight: 700; margin-bottom: 8px; font-family: 'Hind Siliguri',sans-serif; }
+  .login-sub { font-size: 13px; color: var(--text-3); margin-bottom: 24px; font-family: 'Hind Siliguri',sans-serif; line-height: 1.5; }
+  .google-btn { width: 100%; padding: 13px; background: var(--primary); color: white; border: none; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; font-family: 'Hind Siliguri',sans-serif; }
+  .not-admin { margin-top: 16px; padding: 12px; background: var(--danger-light); border-radius: 10px; font-size: 13px; color: var(--danger); display: none; font-family: 'Hind Siliguri',sans-serif; }
+
+  /* MAIN DASHBOARD */
+  .dashboard { display: none; padding-bottom: 30px; }
+
+  /* STATS ROW */
+  .stats-row { display: grid; grid-template-columns: repeat(2,1fr); gap: 10px; padding: 14px 16px; }
+  .stat-card { background: var(--white); border-radius: var(--radius-sm); padding: 14px; box-shadow: var(--shadow); }
+  .stat-num { font-size: 28px; font-weight: 700; font-family: 'DM Sans',sans-serif; }
+  .stat-label { font-size: 12px; color: var(--text-3); font-family: 'Hind Siliguri',sans-serif; margin-top: 2px; }
+  .stat-card.pending .stat-num { color: #856404; }
+  .stat-card.news .stat-num { color: var(--primary); }
+  .stat-card.complaints .stat-num { color: #004085; }
+  .stat-card.users .stat-num { color: #6a0dad; }
+
+  /* TABS */
+  .tabs { display: flex; background: var(--white); border-bottom: 1px solid var(--border); position: sticky; top: 56px; z-index: 50; }
+  .tab { flex: 1; padding: 12px 8px; text-align: center; font-size: 13px; font-weight: 600; color: var(--text-3); cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.15s; font-family: 'Hind Siliguri',sans-serif; border: none; background: none; }
+  .tab.active { color: var(--primary); border-bottom-color: var(--primary); }
+  .tab-count { display: inline-flex; align-items: center; justify-content: center; background: var(--danger); color: white; font-size: 10px; font-weight: 700; width: 16px; height: 16px; border-radius: 50%; margin-left: 4px; font-family: 'DM Sans',sans-serif; }
+
+  /* TAB CONTENT */
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* SECTION */
+  .section-header { padding: 14px 16px 8px; display: flex; align-items: center; justify-content: space-between; }
+  .section-title { font-size: 15px; font-weight: 700; font-family: 'Hind Siliguri',sans-serif; }
+  .section-sub { font-size: 12px; color: var(--text-3); font-family: 'DM Sans',sans-serif; }
+
+  /* ITEM CARD */
+  .item-card { margin: 0 16px 10px; background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
+  .item-header { padding: 12px 14px 8px; display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+  .item-meta { font-size: 11px; color: var(--text-3); font-family: 'DM Sans',sans-serif; margin-bottom: 4px; }
+  .item-title { font-size: 14px; font-weight: 600; font-family: 'Hind Siliguri',sans-serif; line-height: 1.4; }
+  .item-body { font-size: 13px; color: var(--text-2); padding: 0 14px 10px; line-height: 1.5; font-family: 'Hind Siliguri',sans-serif; }
+  .item-actions { display: flex; border-top: 1px solid var(--border); }
+  .action-btn { flex: 1; padding: 11px; border: none; font-size: 13px; font-weight: 600; cursor: pointer; font-family: 'Hind Siliguri',sans-serif; transition: background 0.15s; display: flex; align-items: center; justify-content: center; gap: 5px; }
+  .action-btn.approve { background: var(--primary-light); color: var(--primary); }
+  .action-btn.approve:hover { background: #c8e6d5; }
+  .action-btn.reject { background: var(--danger-light); color: var(--danger); }
+  .action-btn.reject:hover { background: #f9c4c4; }
+  .action-btn.progress { background: #e3f2fd; color: #1565c0; }
+  .action-btn.solved { background: var(--primary-light); color: var(--primary); }
+  .action-btn.delete { background: var(--danger-light); color: var(--danger); }
+  .action-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  .action-divider { width: 1px; background: var(--border); }
+
+  /* BADGE */
+  .badge { display: inline-flex; align-items: center; padding: 3px 8px; border-radius: 20px; font-size: 11px; font-weight: 600; font-family: 'DM Sans',sans-serif; white-space: nowrap; }
+  .badge-pending { background: #fff3cd; color: #856404; }
+  .badge-approved { background: var(--primary-light); color: var(--primary); }
+  .badge-rejected { background: var(--danger-light); color: var(--danger); }
+  .badge-progress { background: #cce5ff; color: #004085; }
+  .badge-solved { background: #d4edda; color: #155724; }
+  .badge-anon { background: #f3e8ff; color: #6a0dad; }
+
+  /* COMPLAINT STATUS BUTTONS */
+  .status-row { display: flex; gap: 6px; padding: 8px 14px 12px; flex-wrap: wrap; }
+  .status-btn { padding: 5px 12px; border-radius: 20px; border: none; font-size: 12px; font-weight: 600; cursor: pointer; font-family: 'DM Sans',sans-serif; transition: all 0.15s; }
+  .status-btn.pending { background: #fff3cd; color: #856404; }
+  .status-btn.progress { background: #cce5ff; color: #004085; }
+  .status-btn.solved { background: #d4edda; color: #155724; }
+  .status-btn.active-status { outline: 2px solid currentColor; }
+
+  /* EMPTY STATE */
+  .empty-state { text-align: center; padding: 48px 24px; color: var(--text-3); }
+  .empty-icon { font-size: 40px; margin-bottom: 12px; }
+  .empty-text { font-size: 14px; font-family: 'Hind Siliguri',sans-serif; }
+
+  /* LOADING */
+  .loading { text-align: center; padding: 32px; color: var(--text-3); font-family: 'Hind Siliguri',sans-serif; font-size: 14px; }
+
+  /* TOAST */
+  .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(20px); background: #1c1c1e; color: white; padding: 10px 20px; border-radius: 20px; font-size: 13px; font-family: 'Hind Siliguri',sans-serif; opacity: 0; transition: all 0.3s; pointer-events: none; z-index: 300; white-space: nowrap; }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  /* CONFIRM MODAL */
+  .confirm-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 200; align-items: center; justify-content: center; padding: 24px; }
+  .confirm-overlay.open { display: flex; }
+  .confirm-box { background: var(--white); border-radius: 16px; padding: 24px; width: 100%; max-width: 320px; text-align: center; }
+  .confirm-title { font-size: 17px; font-weight: 700; margin-bottom: 8px; font-family: 'Hind Siliguri',sans-serif; }
+  .confirm-msg { font-size: 14px; color: var(--text-2); margin-bottom: 20px; font-family: 'Hind Siliguri',sans-serif; line-height: 1.5; }
+  .confirm-btns { display: flex; gap: 10px; }
+  .confirm-yes { flex: 1; padding: 12px; background: var(--danger); color: white; border: none; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: 'Hind Siliguri',sans-serif; }
+  .confirm-no { flex: 1; padding: 12px; background: var(--bg); color: var(--text-2); border: none; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: 'Hind Siliguri',sans-serif; }
+
+  .refresh-btn { background: var(--primary-light); color: var(--primary); border: none; border-radius: 20px; padding: 5px 12px; font-size: 12px; font-weight: 600; cursor: pointer; font-family: 'DM Sans',sans-serif; }
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="logo">
+    <div class="logo-icon">⚙️</div>
+    কেরানীগঞ্জ
+    <span class="admin-badge">ADMIN</span>
+  </div>
+  <div class="topbar-right">
+    <img class="user-photo" id="user-photo" src="" alt="">
+    <button class="logout-btn" id="logout-btn" onclick="doLogout()" style="display:none">লগআউট</button>
+  </div>
+</div>
+
+<!-- LOGIN SCREEN -->
+<div class="login-screen" id="login-screen">
+  <div class="login-card">
+    <div class="login-icon">🔐</div>
+    <div class="login-title">Admin প্যানেল</div>
+    <div class="login-sub">শুধুমাত্র অনুমোদিত Admin প্রবেশ করতে পারবেন। Google অ্যাকাউন্ট দিয়ে লগইন করুন।</div>
+    <button class="google-btn" onclick="doLogin()">
+      <img src="https://www.google.com/favicon.ico" width="16" height="16"> Google দিয়ে লগইন
+    </button>
+    <div class="not-admin" id="not-admin-msg">
+      ⛔ আপনার অ্যাকাউন্টে Admin অ্যাক্সেস নেই।
+    </div>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div class="dashboard" id="dashboard">
+
+  <!-- STATS -->
+  <div class="stats-row">
+    <div class="stat-card pending">
+      <div class="stat-num" id="stat-pending-news">0</div>
+      <div class="stat-label">⏳ অপেক্ষমাণ পোস্ট</div>
+    </div>
+    <div class="stat-card complaints">
+      <div class="stat-num" id="stat-pending-complaints">0</div>
+      <div class="stat-label">🚨 নতুন অভিযোগ</div>
+    </div>
+    <div class="stat-card news">
+      <div class="stat-num" id="stat-total-news">0</div>
+      <div class="stat-label">📰 মোট পোস্ট</div>
+    </div>
+    <div class="stat-card users">
+      <div class="stat-num" id="stat-total-complaints">0</div>
+      <div class="stat-label">📋 মোট অভিযোগ</div>
+    </div>
+  </div>
+
+  <!-- TABS -->
+  <div class="tabs">
+    <button class="tab active" id="tab-news" onclick="switchTab('news')">
+      📰 পোস্ট <span class="tab-count" id="news-count" style="display:none">0</span>
+    </button>
+    <button class="tab" id="tab-complaints" onclick="switchTab('complaints')">
+      🚨 অভিযোগ <span class="tab-count" id="complaint-count" style="display:none">0</span>
+    </button>
+  </div>
+
+  <!-- TAB: NEWS -->
+  <div class="tab-content active" id="content-news">
+    <div class="section-header">
+      <span class="section-title">পোস্ট পর্যালোচনা</span>
+      <button class="refresh-btn" onclick="loadNews()">↻ রিফ্রেশ</button>
+    </div>
+    <div id="news-list"><div class="loading">লোড হচ্ছে...</div></div>
+  </div>
+
+  <!-- TAB: COMPLAINTS -->
+  <div class="tab-content" id="content-complaints">
+    <div class="section-header">
+      <span class="section-title">অভিযোগ ব্যবস্থাপনা</span>
+      <button class="refresh-btn" onclick="loadComplaints()">↻ রিফ্রেশ</button>
+    </div>
+    <div id="complaint-list"><div class="loading">লোড হচ্ছে...</div></div>
+  </div>
+
+</div>
+
+<!-- CONFIRM MODAL -->
+<div class="confirm-overlay" id="confirm-overlay">
+  <div class="confirm-box">
+    <div class="confirm-title" id="confirm-title">নিশ্চিত করুন</div>
+    <div class="confirm-msg" id="confirm-msg">আপনি কি নিশ্চিত?</div>
+    <div class="confirm-btns">
+      <button class="confirm-yes" id="confirm-yes">হ্যাঁ</button>
+      <button class="confirm-no" onclick="closeConfirm()">না</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getFirestore, collection, getDocs, updateDoc, deleteDoc, doc, query, orderBy, where } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBHagEJrvZCyD8XHIqdNzGE39hr7jiDiQw",
+  authDomain: "keraniganj-dbf1b.firebaseapp.com",
+  projectId: "keraniganj-dbf1b",
+  storageBucket: "keraniganj-dbf1b.firebasestorage.app",
+  messagingSenderId: "252291358700",
+  appId: "1:252291358700:web:4a2318ccf1d172152b2ac9"
+};
+
+// ── IMPORTANT: তোমার Gmail এখানে দাও ──
+const ADMIN_EMAILS = [
+  "tjselim00@gmail.com" // ← তোমার Gmail বদলে দাও
+];
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const provider = new GoogleAuthProvider();
+
+let currentUser = null;
+
+// Auth state
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    if (ADMIN_EMAILS.includes(user.email)) {
+      currentUser = user;
+      showDashboard(user);
+    } else {
+      document.getElementById('not-admin-msg').style.display = 'block';
+      signOut(auth);
+    }
+  } else {
+    showLoginScreen();
+  }
+});
+
+function showDashboard(user) {
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('dashboard').style.display = 'block';
+  document.getElementById('logout-btn').style.display = 'block';
+  const photo = document.getElementById('user-photo');
+  if (user.photoURL) { photo.src = user.photoURL; photo.style.display = 'block'; }
+  loadNews();
+  loadComplaints();
+}
+
+function showLoginScreen() {
+  document.getElementById('login-screen').style.display = 'flex';
+  document.getElementById('dashboard').style.display = 'none';
+  document.getElementById('logout-btn').style.display = 'none';
+}
+
+window.doLogin = async () => {
+  try {
+    await signInWithPopup(auth, provider);
+  } catch (e) { showToast('লগইন ব্যর্থ হয়েছে'); }
+};
+
+window.doLogout = async () => {
+  await signOut(auth);
+  showToast('লগআউট সফল');
+};
+
+// ── LOAD NEWS ──
+window.loadNews = async () => {
+  const list = document.getElementById('news-list');
+  list.innerHTML = '<div class="loading">লোড হচ্ছে...</div>';
+  try {
+    const q = query(collection(db, 'news'), orderBy('createdAt', 'desc'));
+    const snap = await getDocs(q);
+    let pending = 0, total = snap.size;
+
+    if (snap.empty) {
+      list.innerHTML = '<div class="empty-state"><div class="empty-icon">📭</div><div class="empty-text">কোনো পোস্ট নেই</div></div>';
+      return;
+    }
+
+    list.innerHTML = '';
+    snap.forEach(d => {
+      const data = d.data();
+      const id = d.id;
+      const status = data.status || 'pending';
+      if (status === 'pending') pending++;
+
+      const badgeMap = { pending: ['badge-pending','⏳ অপেক্ষমাণ'], approved: ['badge-approved','✅ অনুমোদিত'], rejected: ['badge-rejected','❌ প্রত্যাখ্যাত'] };
+      const [badgeClass, badgeText] = badgeMap[status] || badgeMap.pending;
+      const timeAgo = getTimeAgo(data.createdAt);
+
+      list.innerHTML += `
+        <div class="item-card" id="news-${id}">
+          <div class="item-header">
+            <div style="flex:1">
+              <div class="item-meta">${data.anonymous ? '익명' : (data.authorName||'অজ্ঞাত')} • ${timeAgo} • ${data.category||'সাধারণ'} ${data.anonymous ? '<span class="badge badge-anon">익명</span>' : ''}</div>
+              <div class="item-title">${data.title || data.body?.substring(0,60)+'...'}</div>
+            </div>
+            <span class="badge ${badgeClass}">${badgeText}</span>
+          </div>
+          <div class="item-body">${data.body?.substring(0,150)}${data.body?.length > 150 ? '...' : ''}</div>
+          <div class="item-actions">
+            <button class="action-btn approve" onclick="approveNews('${id}')" ${status==='approved'?'disabled':''}>✅ অনুমোদন</button>
+            <div class="action-divider"></div>
+            <button class="action-btn reject" onclick="rejectNews('${id}')" ${status==='rejected'?'disabled':''}>❌ প্রত্যাখ্যান</button>
+            <div class="action-divider"></div>
+            <button class="action-btn delete" onclick="confirmDelete('news','${id}')">🗑️</button>
+          </div>
+        </div>`;
+    });
+
+    document.getElementById('stat-pending-news').textContent = pending;
+    document.getElementById('stat-total-news').textContent = total;
+    const countEl = document.getElementById('news-count');
+    if (pending > 0) { countEl.textContent = pending; countEl.style.display = 'inline-flex'; }
+    else { countEl.style.display = 'none'; }
+
+  } catch (e) {
+    list.innerHTML = '<div class="empty-state"><div class="empty-icon">⚠️</div><div class="empty-text">ডেটা লোড করতে সমস্যা হয়েছে</div></div>';
+  }
+};
+
+// ── LOAD COMPLAINTS ──
+window.loadComplaints = async () => {
+  const list = document.getElementById('complaint-list');
+  list.innerHTML = '<div class="loading">লোড হচ্ছে...</div>';
+  try {
+    const q = query(collection(db, 'complaints'), orderBy('createdAt', 'desc'));
+    const snap = await getDocs(q);
+    let pendingCount = 0, total = snap.size;
+
+    if (snap.empty) {
+      list.innerHTML = '<div class="empty-state"><div class="empty-icon">📭</div><div class="empty-text">কোনো অভিযোগ নেই</div></div>';
+      return;
+    }
+
+    list.innerHTML = '';
+    snap.forEach(d => {
+      const data = d.data();
+      const id = d.id;
+      const status = data.status || 'pending';
+      if (status === 'pending') pendingCount++;
+
+      const badgeMap = { pending: ['badge-pending','⏳ অপেক্ষমাণ'], progress: ['badge-progress','🔄 চলমান'], solved: ['badge-solved','✅ সমাধান'] };
+      const [badgeClass, badgeText] = badgeMap[status] || badgeMap.pending;
+      const timeAgo = getTimeAgo(data.createdAt);
+      const catIcons = { রাস্তা:'🛣️', পানি:'💧', বিদ্যুৎ:'⚡', দুর্নীতি:'🚫', বর্জ্য:'🗑️', শিক্ষা:'🏫' };
+      const icon = catIcons[data.category] || '📋';
+
+      list.innerHTML += `
+        <div class="item-card" id="complaint-${id}">
+          <div class="item-header">
+            <div style="flex:1">
+              <div class="item-meta">${icon} ${data.category} • ${data.anonymous ? '익명' : (data.authorName||'অজ্ঞাত')} • ${timeAgo} • 👍 ${data.votes||0} ভোট</div>
+              <div class="item-title">${data.title}</div>
+            </div>
+            <span class="badge ${badgeClass}">${badgeText}</span>
+          </div>
+          <div class="item-body">${data.body?.substring(0,150)}${data.body?.length > 150 ? '...' : ''}</div>
+          <div class="status-row">
+            <button class="status-btn pending ${status==='pending'?'active-status':''}" onclick="updateComplaintStatus('${id}','pending')">⏳ অপেক্ষমাণ</button>
+            <button class="status-btn progress ${status==='progress'?'active-status':''}" onclick="updateComplaintStatus('${id}','progress')">🔄 চলমান</button>
+            <button class="status-btn solved ${status==='solved'?'active-status':''}" onclick="updateComplaintStatus('${id}','solved')">✅ সমাধান</button>
+          </div>
+          <div class="item-actions">
+            <button class="action-btn delete" onclick="confirmDelete('complaints','${id}')">🗑️ মুছে ফেলুন</button>
+          </div>
+        </div>`;
+    });
+
+    document.getElementById('stat-pending-complaints').textContent = pendingCount;
+    document.getElementById('stat-total-complaints').textContent = total;
+    const countEl = document.getElementById('complaint-count');
+    if (pendingCount > 0) { countEl.textContent = pendingCount; countEl.style.display = 'inline-flex'; }
+    else { countEl.style.display = 'none'; }
+
+  } catch (e) {
+    list.innerHTML = '<div class="empty-state"><div class="empty-icon">⚠️</div><div class="empty-text">ডেটা লোড করতে সমস্যা হয়েছে</div></div>';
+  }
+};
+
+// ── NEWS ACTIONS ──
+window.approveNews = async (id) => {
+  try {
+    await updateDoc(doc(db, 'news', id), { status: 'approved', verified: true });
+    showToast('✅ পোস্ট অনুমোদিত হয়েছে');
+    loadNews();
+  } catch { showToast('সমস্যা হয়েছে'); }
+};
+
+window.rejectNews = async (id) => {
+  try {
+    await updateDoc(doc(db, 'news', id), { status: 'rejected', verified: false });
+    showToast('❌ পোস্ট প্রত্যাখ্যাত হয়েছে');
+    loadNews();
+  } catch { showToast('সমস্যা হয়েছে'); }
+};
+
+// ── COMPLAINT STATUS ──
+window.updateComplaintStatus = async (id, status) => {
+  try {
+    await updateDoc(doc(db, 'complaints', id), { status });
+    const labels = { pending:'অপেক্ষমাণ', progress:'চলমান', solved:'সমাধান' };
+    showToast(`স্ট্যাটাস: ${labels[status]} করা হয়েছে`);
+    loadComplaints();
+  } catch { showToast('সমস্যা হয়েছে'); }
+};
+
+// ── DELETE ──
+let deleteTarget = null;
+window.confirmDelete = (col, id) => {
+  deleteTarget = { col, id };
+  document.getElementById('confirm-title').textContent = 'মুছে ফেলবেন?';
+  document.getElementById('confirm-msg').textContent = 'এই আইটেমটি স্থায়ীভাবে মুছে যাবে। এটি পূর্বাবস্থায় ফেরানো যাবে না।';
+  document.getElementById('confirm-yes').onclick = doDelete;
+  document.getElementById('confirm-overlay').classList.add('open');
+};
+
+window.closeConfirm = () => {
+  document.getElementById('confirm-overlay').classList.remove('open');
+  deleteTarget = null;
+};
+
+async function doDelete() {
+  if (!deleteTarget) return;
+  closeConfirm();
+  try {
+    await deleteDoc(doc(db, deleteTarget.col, deleteTarget.id));
+    showToast('🗑️ মুছে ফেলা হয়েছে');
+    if (deleteTarget.col === 'news') loadNews();
+    else loadComplaints();
+  } catch { showToast('মুছতে সমস্যা হয়েছে'); }
+}
+
+// ── TABS ──
+window.switchTab = (name) => {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  document.getElementById('content-' + name).classList.add('active');
+};
+
+// ── HELPERS ──
+function getTimeAgo(timestamp) {
+  if (!timestamp) return 'এইমাত্র';
+  const now = new Date();
+  const date = timestamp.toDate ? timestamp.toDate() : new Date(timestamp);
+  const diff = Math.floor((now - date) / 1000);
+  if (diff < 60) return 'এইমাত্র';
+  if (diff < 3600) return `${Math.floor(diff/60)} মিনিট আগে`;
+  if (diff < 86400) return `${Math.floor(diff/3600)} ঘণ্টা আগে`;
+  return `${Math.floor(diff/86400)} দিন আগে`;
+}
+
+let toastTimer;
+window.showToast = (msg) => {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2500);
+};
+</script>
+</body>
+</html>
