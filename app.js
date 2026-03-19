@@ -71,7 +71,11 @@ async function loadNews() {
   container.innerHTML = '<div style="text-align:center;padding:30px;color:var(--text-3)">লোড হচ্ছে...</div>';
 
   try {
-    const q = query(collection(db, 'news'), orderBy('createdAt', 'desc'));
+ const q = query(
+  collection(db, 'news'),
+  where('status', '==', 'approved'),
+  orderBy('createdAt', 'desc')
+);
     const snapshot = await getDocs(q);
 
     if (snapshot.empty) {
